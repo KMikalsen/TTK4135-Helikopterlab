@@ -2,4 +2,5 @@
 \contentsline {subsection}{\numberline {1.1}State space form}{2}{subsection.1.1}
 \contentsline {section}{\numberline {2}Optimal control of pitch/travel with LQ control}{3}{section.2}
 \contentsline {section}{\numberline {3}Optimal control of pitch/travel and elevation with and without feedback}{4}{section.3}
-\contentsline {section}{\numberline {4}Stolen latex source from report writing document}{5}{section.4}
+\contentsline {section}{\numberline {4}Pastebin (remove before handing in lol)}{5}{section.4}
+\contentsline {subsection}{\numberline {4.1}Copied source for system description equations}{5}{subsection.4.1}
