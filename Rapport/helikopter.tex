@@ -19,17 +19,18 @@
 \usepackage{fancyhdr}
 \usepackage{geometry}
 \usepackage{float}
-\usepackage[numbered,framed,breaklines=true]{mcode}
+\usepackage[numbered]{mcode}
 \usepackage{bm}
 \usepackage{hyperref}
 \usepackage[round]{natbib}
 \usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 
-
 \lstset{
     frame=single,
     breaklines=true,
     postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{green}\hookrightarrow\space}}
+    breaklines=true,
+    frame=topbottom
 }
 \hypersetup{
 	colorlinks,
@@ -63,5 +64,15 @@ We want to write the model in equation \ref{eq:model1} in continuous time state 
 \newpage
 \section{Optimal control of pitch/travel and elevation with and without feedback}
 \newpage
+\section{Stolen latex source from report writing document}
+\begin{subequations}
+\label{eq:model_al}
+\begin{align}
+	\ddot{e} + K_{3} K_{ed} \dot{e} + K_{3} K_{ep} e &= K_{3} K_{ep} e_{c} \label{eq:model_se_al_elev} \\
+	\ddot{p} + K_{1} K_{pd} \dot{p} + K_{1} K_{pp} p &= K_{1} K_{pp} p_{c} \label{eq:model_se_al_pitch} \\
+	\dot{\lambda} &= r \label{eq:model_se_al_lambda} \\
+	\dot{r} &= -K_{2} p \label{eq:model_se_al_r} 
+\end{align}
+\end{subequations}
 \end{document}
 
