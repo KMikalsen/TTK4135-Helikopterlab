@@ -51,12 +51,14 @@
 
 \newpage
 \epigraph{\textit{"Smack my pitch up."}}{The Prodigy (1997)}
-\section{Optimal control of pitch/travel with no feedback}
+\section{Optimal control of pitch/travel without feedback}
 \subsection{State space form}
 We want to write the model in equation \ref{eq:model1} in continuous time state space form with $x = \left[ \lambda\  r\  p\  \dot{p}\right]^T$ and $u=p_c$
 \begin{equation}\label{eq:model1}
 \dot{x}=A_cx+B_cu
 \end{equation}
+\subsection{Model discussion}
+The states are travel, travel rate, pitch, and pitch rate. The controller output is the pitch setpoint used by the given controller which in turn calculates voltage inputs for the plant. Thus, we are modelling not the helicopter alone, but the helicopter along with the given controller. This corresponds with Figure 7 (proper ref here?) in the exercise text (add ref).
 
 \newpage
 \epigraph{\textit{"I've got 99 problems, but a pitch ain't one."}}{Ice-T (1993)}
