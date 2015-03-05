@@ -71,12 +71,9 @@
 \begin{align}
 	\V{x}_{k+1} &= \V{x}_{k} + \left( \M{A}_{c} \V{x}_{k} + \M{B}_c u_{k} \right) h \\
 				&= \V{x}_{k} + h\M{A}_{c}\V{x}_{k} + h\M{B}_{c}u_{k} \\
-				&= \left( \Mc{I} + h\M{A}_{c} \right) \V{x}_{k} + h\M{B}_{c}u_{k}
+				&= \left( \Mc{I} + h\M{A}_{c} \right) \V{x}_{k} + h\M{B}_{c}u_{k} \\
+				&= \M{A}\V{x}_{k} + \M{B}u_{k}
 \end{align}
-\end{equation}
-
-\begin{equation}
-	\V{x}_{k+1} = \M{A}\V{x}_{k} + \M{B}y_{k}
 \end{equation}
 
 \begin{subequations}
