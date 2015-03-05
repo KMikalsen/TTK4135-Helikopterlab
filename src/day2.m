@@ -15,13 +15,13 @@ init04;
 delta_t	  = 0.25;	                    % sampling time
 sek_forst = 5;
 
-q = 1;
+q = 0.1;
 % System model. x=[lambda r p p_dot]'
 
 A1 = [1 delta_t 0 0;
       0 1 -K_2*delta_t 0;
       0 0 1 delta_t;
-      0 0 -K_1*K_pd*delta_t 1-K_1*K_pd*delta_t];
+      0 0 -K_1*K_pp*delta_t 1-K_1*K_pd*delta_t];
   
 B1 = [0; 0; 0; K_1*K_pp*delta_t];
 
@@ -112,11 +112,12 @@ x3  = [Nuller; x3; Nuller];
 x4  = [Nuller; x4; Nuller];
 
 %save trajektor1ny
+t = 0:delta_t:delta_t*(length(u)-1); % real time
 
 simin = [t' u];
 
 % figure
-t = 0:delta_t:delta_t*(length(u)-1);                % real time
+                
 
 figure(2)
 subplot(511)
@@ -134,3 +135,14 @@ ylabel('p')
 subplot(515)
 plot(t,x4,'m',t,x4','mo'),grid
 xlabel('tid (s)'),ylabel('pdot')
+
+x = [t' x1 x2 x3 x4];
+%%
+
+Q_k = [15 0 0 0;
+       0 0.5 0 0;
+       0 0 100 0;
+       0 0 0 0.5];
+R = 1;
+
+[K S E] = dlqr(A1, B1, Q_k, R, 0);

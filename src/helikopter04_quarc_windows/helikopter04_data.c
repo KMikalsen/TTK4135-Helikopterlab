@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopter04.mdl".
  *
- * Model version              : 1.76
+ * Model version              : 1.74
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Feb 26 15:06:59 2015
+ * C source code generated on : Thu Mar 05 12:09:09 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -52,10 +52,10 @@ Parameters_helikopter04 helikopter04_P = {
   0.105,                               /* Expression: KalibElevasjon
                                         * Referenced by: '<S2>/Kalibrer-Elev'
                                         */
-  -20.0,                               /* Expression: -20
+  -30.0,                               /* Expression: -30
                                         * Referenced by: '<Root>/Constant'
                                         */
-  -30.0,                               /* Expression: -30
+  180.0,                               /* Expression: 180
                                         * Referenced by: '<Root>/Constant1'
                                         */
   -50.0,                               /* Computed Parameter: VandringLavpass_A
@@ -63,21 +63,6 @@ Parameters_helikopter04 helikopter04_P = {
                                         */
   50.0,                                /* Computed Parameter: VandringLavpass_C
                                         * Referenced by: '<S2>/Vandring Lavpass'
-                                        */
-  0.0879,                              /* Expression: KalibPitch
-                                        * Referenced by: '<S2>/Kalibrer-Pitch'
-                                        */
-  1.5707963267948966E-001,             /* Expression: 9*pi/180
-                                        * Referenced by: '<Root>/elevation1'
-                                        */
-  0.0,                                 /* Expression: 0
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
-  0.0,                                 /* Expression: inf
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
-  0.0,                                 /* Expression: -inf
-                                        * Referenced by: '<S1>/Integrator'
                                         */
   -0.088,                              /* Expression: KalibVandring
                                         * Referenced by: '<S2>/Kalibrer -Vandring'
@@ -90,6 +75,9 @@ Parameters_helikopter04 helikopter04_P = {
                                         */
   20.0,                                /* Computed Parameter: VandringDeriv_D
                                         * Referenced by: '<S2>/Vandring Deriv'
+                                        */
+  0.0879,                              /* Expression: KalibPitch
+                                        * Referenced by: '<S2>/Kalibrer-Pitch'
                                         */
   -100.0,                              /* Computed Parameter: TransferFcn4_A
                                         * Referenced by: '<S2>/Transfer Fcn4'
@@ -119,10 +107,25 @@ Parameters_helikopter04 helikopter04_P = {
     1.7453292519943295E-002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     1.7453292519943295E-002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     1.7453292519943295E-002 },
+
+  /*  Expression: K
+   * Referenced by: '<Root>/Gain1'
+   */
+  { -1.5554777955826188E-001, -1.0242464125571651E+000, -5.0197567563077561E-001,
+    8.6402525452396323E-002 },
+  0.0,                                 /* Expression: 0
+                                        * Referenced by: '<S1>/Integrator'
+                                        */
+  0.0,                                 /* Expression: inf
+                                        * Referenced by: '<S1>/Integrator'
+                                        */
+  0.0,                                 /* Expression: -inf
+                                        * Referenced by: '<S1>/Integrator'
+                                        */
   -5.5,                                /* Expression: -K_ed
                                         * Referenced by: '<S1>/K_ed'
                                         */
-  -1.7453292519943295E-001,            /* Expression: -10*pi/180
+  0.0,                                 /* Expression: 0*pi/180
                                         * Referenced by: '<Root>/elevation'
                                         */
   2.2,                                 /* Expression: K_ei

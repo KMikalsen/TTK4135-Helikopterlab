@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopter04.mdl".
  *
- * Model version              : 1.76
+ * Model version              : 1.74
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Feb 26 15:06:59 2015
+ * C source code generated on : Thu Mar 05 12:09:09 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -17,7 +17,7 @@
 #define RTW_HEADER_helikopter04_private_h_
 #include "rtwtypes.h"
 
-/* Used by FromWorkspace Block: '<Root>/From Workspace' */
+/* Used by FromWorkspace Block: '<Root>/From Workspace1' */
 #ifndef rtInterpolate
 # define rtInterpolate(v1,v2,f1,f2)    (((v1)==(v2))?((double)(v1)): (((f1)*((double)(v1)))+((f2)*((double)(v2)))))
 #endif
