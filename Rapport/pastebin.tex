@@ -10,3 +10,47 @@
 	\dot{r} &= -K_{2} p \label{eq:model_se_al_r} 
 \end{align}
 \end{subequations}
+
+\subsection{10.2.1}
+
+\begin{subequations}
+\begin{align}
+	\V{x} 	&= \begin{bmatrix}\lambda & r & p & \dot{p} \end{bmatrix}\transpose \\
+	u 		&= p_{c}
+\end{align}
+\end{subequations}
+
+\begin{subequations}
+\begin{align}
+	\ddot{p} 		&= K_{1} K_{pp} (p_{c} - p) - K_{1} K_{pd} \dot{p} \\
+	\dot{r} 		&= - K_{a} p \\
+	\dot{\lambda} 	&= r \\
+	\dot{p} 		&= \dot{p}
+\end{align}
+\end{subequations}
+
+\begin{subequations}
+\begin{align}
+	K_{1} &= \frac{K_{f} l_{n}}{J_{p}} \\
+	K_{2} &= \frac{K_{p} l_{a}}{J_{t}}
+\end{align}
+\end{subequations}
+
+\begin{equation}
+	\V{\dot{x}} = \M{A}_{c} + \M{B}_{u} u \\
+\end{equation}
+
+\begin{equation}
+	\V{\dot{x}} =
+	\begin{bmatrix}
+		0 & 1 & 0 				& 0 \\
+		0 & 0 & -K_{2} 			& 0 \\
+		0 & 0 & 0 				& 1 \\
+		0 & 0 & -K_{1}K_{pp}	& -K_{1}K_{pd}
+	\end{bmatrix}
+	\V{x} +
+	\begin{bmatrix}
+		0 \\ 0 \\ 0 \\ K_{1}K_{pp}
+	\end{bmatrix}
+	p_{c}
+\end{equation}
