@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopter04.mdl".
  *
- * Model version              : 1.74
+ * Model version              : 1.76
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Mar 05 12:09:09 2015
+ * C source code generated on : Thu Mar 12 14:00:15 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -111,8 +111,8 @@ Parameters_helikopter04 helikopter04_P = {
   /*  Expression: K
    * Referenced by: '<Root>/Gain1'
    */
-  { -1.5554777955826188E-001, -1.0242464125571651E+000, -5.0197567563077561E-001,
-    8.6402525452396323E-002 },
+  { -1.9963826865897016E-001, -1.1753469435617681E+000, -4.9132048298058889E-001,
+    8.7725428338004299E-002 },
   0.0,                                 /* Expression: 0
                                         * Referenced by: '<S1>/Integrator'
                                         */

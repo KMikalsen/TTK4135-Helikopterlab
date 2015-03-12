@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.75"
+    ComputedModelVersion    "1.77"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "jongf"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 05 12:11:42 2015"
-  RTWModifiedTimeStamp	  347457958
-  ModelVersionFormat	  "1.%<AutoIncrement:75>"
+  LastModifiedDate	  "Thu Mar 12 14:05:31 2015"
+  RTWModifiedTimeStamp	  348069733
+  ModelVersionFormat	  "1.%<AutoIncrement:77>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -945,7 +945,7 @@ Model {
   }
   System {
     Name		    "helikopter04"
-    Location		    [95, 477, 1180, 939]
+    Location		    [53, 142, 1608, 878]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1000,7 +1000,7 @@ Model {
       Name		      "Constant1"
       SID		      92
       Position		      [735, 90, 765, 120]
-      Value		      "-90"
+      Value		      "360"
       OutDataType	      "sfix(16)"
       OutScaling	      "2^0"
     }
@@ -2253,7 +2253,7 @@ Model {
       Position		      [385, 49, 415, 81]
       Floating		      off
       Location		      [703, 591, 1027, 830]
-      Open		      on
+      Open		      off
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
@@ -2292,15 +2292,16 @@ Model {
       Ports		      [1]
       Position		      [990, 154, 1020, 186]
       Floating		      off
-      Location		      [92, 664, 416, 903]
-      Open		      off
+      Location		      [152, 270, 1247, 780]
+      Open		      on
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
       }
-      YMin		      "5931.5"
-      YMax		      "5940"
+      TimeRange		      "10"
+      YMin		      "0"
+      YMax		      "85"
       SaveName		      "ScopeData2"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
@@ -2560,21 +2561,21 @@ MatData {
     Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7V"
     "YA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !  "
     "   %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @"
-    "    &          4    (     0    $    !          D    (         \"@ 0$ "
+    "    &          4    (     0    $    !          D    (         \"2 1D "
   }
   DataRecord {
     Tag			    DataTag1
     Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7V"
     "YA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !  "
     "   %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @"
-    "    &          4    (     0    $    !          D    (         \"@ 0$ "
+    "    &          4    (     0    $    !          D    (         \"2 1D "
   }
   DataRecord {
     Tag			    DataTag0
     Data		    "  %)30     .    6%<   8    (     @         %    \"     $    !     0         %  0 $0    $   !F    :7-?=6"
     "YI<75E          !O;&1?8FQO8VL          &]L9%]N86UE            :7-?;6]D96Q?8VQO<VEN9P!S971T:6YG<P           &ES7V1E"
     ";&5T960            .    ,     8    (    \"0(        %    \"     $    !     0         \"  $  0    X    X    !@    @"
-    "    &          4    (     0    $    !          D    (         \"@ 0$ .    .     8    (    !          %    \"     $"
+    "    &          4    (     0    $    !          D    (         \"2 1D .    .     8    (    !          %    \"     $"
     "    %     0         0    !0   $A)3\"TQ    #@   #     &    \"     D\"        !0    @    !     0    $          @ !  "
     "     .    B%4   8    (     @         %    \"     $    !     0         %  0 $P    $   !,    ;VQD7V)O87)D7W1Y<&4    "
     "  '$X                      !Q-                       <V5N<V]R87E?;6]D96Q?-C(V       .    2     8    (    !        "

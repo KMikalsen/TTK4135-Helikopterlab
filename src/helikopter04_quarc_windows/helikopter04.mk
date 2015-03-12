@@ -158,8 +158,8 @@ MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(MATLAB_ROOT)\rtw\c\src\ext_mode\common
 
 # Additional file include paths (from rtwmakecfg.m functions)
 
-MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\TTK4135-Helikopterlab\src\helikopter04_quarc_windows
-MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\TTK4135-Helikopterlab\src
+MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\ttk4135-helikopterlab\src\helikopter04_quarc_windows
+MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\ttk4135-helikopterlab\src
 MATLAB_INCLUDES = $(MATLAB_INCLUDES);C:\PROGRA~1\Quanser\QUARC\include
 
 QUARC_INCLUDES = $(QUARC)\include
