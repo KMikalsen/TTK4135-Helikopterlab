@@ -38,9 +38,12 @@ x1_0 = pi;                              % Lambda
 x2_0 = 0;                               % r
 x3_0 = 0;                               % p
 x4_0 = 0;                               % p_dot
-x5_0 = 0;                               % e
+x5_0 = pi/4;                               % e
 x6_0 = 0;                               % e_dot
 x0   = [x1_0 x2_0 x3_0 x4_0 x5_0 x6_0]';          % Initial values
+
+u1_0 = 0;
+u2_0 = 0; %spør studass
 
 q_1 = 1;
 q_2 = 1;
@@ -111,48 +114,76 @@ end
 
 % Extract control inputs and states
 
-u  = [z(N*mx+1:N*mx+M*mu);z(N*mx+M*mu)]; % Control input from solution
+u1 = [u1_0; z(N*mx+1:mu:N*mx+M*mu)]; % Control input from solution
+u2 = [u2_0; z(N*mx+2:mu:N*mx+M*mu)];
 
 x1 = [x0(1);z(1:mx:N*mx)];              % State x1 from solution
 x2 = [x0(2);z(2:mx:N*mx)];              % State x2 from solution
 x3 = [x0(3);z(3:mx:N*mx)];              % State x3 from solution
 x4 = [x0(4);z(4:mx:N*mx)];              % State x4 from solution
+x5 = [x0(5);z(5:mx:N*mx)];
+x6 = [x0(6);z(6:mx:N*mx)];
 
 Antall = 5/delta_t;
 Nuller = zeros(Antall,1);
 Enere  = ones(Antall,1);
 
-u   = [Nuller; u; Nuller];
-x1  = [pi*Enere; x1; Nuller];
+u1   = [Nuller; u1; Nuller];
+u2   = [Nuller; u2; Nuller];
+
+x1  = [x1_0*Enere; x1; Nuller];
 x2  = [Nuller; x2; Nuller];
 x3  = [Nuller; x3; Nuller];
 x4  = [Nuller; x4; Nuller];
+x5 = [x5_0*Enere; x5; Nuller];
+x6 = [Nuller; x6; Nuller];
 
 %save trajektor1ny
-t = 0:delta_t:delta_t*(length(u)-1); % real time
+t = 0:delta_t:delta_t*(length(u1)-1); % real time
 
-simin = [t' u];
-
+pc = [t' u1];
+ec = [t' u2];
 % figure
                 
 
 figure(2)
-subplot(511)
-stairs(t,u),grid
-ylabel('u')
-subplot(512)
+subplot(8,1,1)
+stairs(t,u1),grid
+ylabel('u1')
+subplot(8,1,2)
+stairs(t, u2),grid
+ylabel('u2')
+subplot(8,1,3)
 plot(t,x1,'m',t,x1,'mo'),grid
 ylabel('lambda')
-subplot(513)
+subplot(8,1,4)
 plot(t,x2,'m',t,x2','mo'),grid
 ylabel('r')
-subplot(514)
+subplot(8,1,5)
 plot(t,x3,'m',t,x3,'mo'),grid
 ylabel('p')
-subplot(515)
+subplot(8,1,6)
 plot(t,x4,'m',t,x4','mo'),grid
-xlabel('tid (s)'),ylabel('pdot')
+ylabel('pdot')
+subplot(8,1,7)
+plot(t,x5,'m',t,x5','mo'),grid
+ylabel('e')
+subplot(8,1,8)
+plot(t,x6,'m',t,x6','mo'),grid
+ylabel('edot')
+xlabel('tid (s)')
 
-x = [t' x1 x2 x3 x4];
+x = [t' x1 x2 x3 x4 x5 x6];
 
+%%
+Q_k = [25 0 0 0 0 0;
+       0 0.5 0 0 0 0;
+       0 0 100 0 0 0;
+       0 0 0 0.5 0 0;
+       0 0 0 0 15 0;
+       0 0 0 0 0 0.5];
 
+R = [1 0;
+     0 1];
+
+[K S E] = dlqr(A, B, Q_k, R, 0);

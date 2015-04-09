@@ -58,7 +58,7 @@ EnableTeXEnhancements = false
 DefaultDisplayMode = automatic
 DefaultZoom = fit page
 WindowState = 1
-WindowPos = 558 0 803 1040
+WindowPos = 960 0 960 1040
 ShowToc = true
 SidebarDx = 196
 TocDy = 0
@@ -75,12 +75,12 @@ FileStates [
 		OpenCount = 1
 		UseDefaultState = false
 		DisplayMode = continuous
-		ScrollPos = -1 -1
-		PageNo = 1
-		Zoom = fit page
+		ScrollPos = -1 487
+		PageNo = 18
+		Zoom = 100
 		Rotation = 0
 		WindowState = 1
-		WindowPos = 558 0 803 1040
+		WindowPos = 960 0 960 1040
 		ShowToc = true
 		SidebarDx = 196
 		DisplayR2L = false
@@ -89,4 +89,4 @@ FileStates [
 	]
 ]
 TimeOfLastUpdateCheck = 0 0
-OpenCountWeek = 218
+OpenCountWeek = 222
