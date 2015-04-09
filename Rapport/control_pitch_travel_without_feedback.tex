@@ -1,9 +1,78 @@
-\epigraph{\textit{"Smack my pitch up."}}{The Prodigy (1997)}
+\epigraph{\textit{'Smack my pitch up.'}}{The Prodigy (1997)}
+
 \section{Optimal control of pitch/travel without feedback}
+
+
+
 \subsection{State space form}
-We want to write the model in equation \ref{eq:model1} in continuous time state space form with $x = \left[ \lambda\  r\  p\  \dot{p}\right]^T$ and $u=p_c$
+We want to write the model \eqref{eq:model1} in continuous time state space form with states and input as shown in \eqref{eq:state_and_input}.
+
 \begin{equation}\label{eq:model1}
-\dot{x}=A_cx+B_cu
+	\V{\dot{x}} = \M{A}_{c}\V{x} + \M{B}_{c}u
 \end{equation}
+
+\begin{subequations}\label{eq:state_and_input}
+\begin{align}
+	\V{x} 	&= \begin{bmatrix}\lambda & r & p & \dot{p} \end{bmatrix}\transpose \\
+	u 		&= p_{c}
+\end{align}
+\end{subequations}
+
+The equations of motion for the states are shown in \eqref{eq:state_equations} and the constants used are defined in \eqref{eq:K1K2}.
+
+\begin{subequations}\label{eq:state_equations}
+\begin{align}
+	\dot{\lambda} 	&= r \\
+	\dot{r} 		&= - K_{a} p \\
+	\dot{p} 		&= \dot{p} \\
+	\ddot{p} 		&= K_{1} K_{pp} (p_{c} - p) - K_{1} K_{pd} \dot{p}
+\end{align}
+\end{subequations}
+
+\begin{subequations}\label{eq:K1K2}
+\begin{align}
+	K_{1} &= \frac{K_{f} l_{n}}{J_{p}} \\
+	K_{2} &= \frac{K_{p} l_{a}}{J_{t}}
+\end{align}
+\end{subequations}
+
+The above gives the result in \eqref{eq:state_space_matrices}.
+
+\begin{equation}\label{eq:state_space_matrices}
+	\V{\dot{x}} =
+	\underbrace{
+		\begin{bmatrix}
+			0 & 1 & 0 				& 0 \\
+			0 & 0 & -K_{2} 			& 0 \\
+			0 & 0 & 0 				& 1 \\
+			0 & 0 & -K_{1}K_{pp}	& -K_{1}K_{pd}
+		\end{bmatrix}
+	}_{\M{A}_{c}}
+	\V{x} +
+	\underbrace{
+		\begin{bmatrix}
+			0 \\ 0 \\ 0 \\ K_{1}K_{pp}
+		\end{bmatrix}
+	}_{\M{B}_{c}}
+	u
+\end{equation}
+
+
+
 \subsection{Model discussion}
-The states are travel, travel rate, pitch, and pitch rate. The controller output is the pitch setpoint used by the given controller which in turn calculates voltage inputs for the plant. Thus, we are modelling not the helicopter alone, but a system that consists of the helicopter along with the given controller. This corresponds with Figure 7 (proper ref here?) in the exercise text (add ref).
+The states are travel, travel rate, pitch, and pitch rate. The controller output is the pitch setpoint to be used by the already implemented controller which in turn calculates voltage inputs for the plant. Thus, we are modelling not the helicopter alone, but a system that consists of the helicopter along with the given controller. This corresponds with Figure 7 (proper ref here?) in the exercise text (add ref).
+
+
+
+\subsection{Discretisation}
+
+\subsection{Cost function discussion}
+- cost function has a focus on the error between lambda_i and lambda_f
+- is a quadratic function, least-square 
+
+\subsection{unwatend effect dicsussion}
+- when lambda=lambda_f, you will minimize the pitch, making it 0. This can make the helicopter oscilate around lambda=lambda_f, as the pitch will be set to 0 on that particular point
+
+\subsubsection{4 does the helicopter end in desired and what causes deviation}
+- No, because the optimization calculation doesn't take in account the brake time to stop in the desired point, and thus it doesn't stop in time. 
+
