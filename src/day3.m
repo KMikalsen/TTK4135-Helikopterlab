@@ -137,3 +137,12 @@ plot(t,x4,'m',t,x4','mo'),grid
 xlabel('tid (s)'),ylabel('pdot')
 
 x = [t' x1 x2 x3 x4];
+%%
+
+Q_k = [25 0 0 0;
+       0 0.5 0 0;
+       0 0 100 0;
+       0 0 0 0.5];
+R = 1;
+
+[K S E] = dlqr(A1, B1, Q_k, R, 0);

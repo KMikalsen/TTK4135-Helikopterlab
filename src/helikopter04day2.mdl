@@ -1,12 +1,12 @@
 Model {
-  Name			  "helikopter04"
+  Name			  "helikopter04day2"
   Version		  7.5
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.77"
+    ComputedModelVersion    "1.78"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "jongf"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 12 14:05:31 2015"
-  RTWModifiedTimeStamp	  348069733
-  ModelVersionFormat	  "1.%<AutoIncrement:77>"
+  LastModifiedDate	  "Thu Mar 12 14:09:25 2015"
+  RTWModifiedTimeStamp	  348070164
+  ModelVersionFormat	  "1.%<AutoIncrement:78>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -944,7 +944,7 @@ Model {
     }
   }
   System {
-    Name		    "helikopter04"
+    Name		    "helikopter04day2"
     Location		    [53, 142, 1608, 878]
     Open		    on
     ModelBrowserVisibility  off
@@ -1209,38 +1209,11 @@ Model {
       ZeroCross		      on
     }
     Block {
-      BlockType		      FromWorkspace
-      Name		      "From\nWorkspace1"
-      SID		      84
-      Position		      [203, 105, 227, 150]
-      BlockRotation	      270
-      VariableName	      "x"
-      SampleTime	      "0"
-      ZeroCross		      on
-    }
-    Block {
       BlockType		      Gain
       Name		      "Gain"
       SID		      16
       Position		      [915, 214, 950, 246]
       Gain		      "eye(6)*pi/180"
-      Multiplication	      "Matrix(K*u)"
-      ParameterDataTypeMode   "Inherit via internal rule"
-      ParameterDataType	      "sfix(16)"
-      ParameterScaling	      "2^0"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
-      OutDataTypeMode	      "Inherit via internal rule"
-      OutDataType	      "sfix(16)"
-      OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
-      SaturateOnIntegerOverflow	off
-    }
-    Block {
-      BlockType		      Gain
-      Name		      "Gain1"
-      SID		      88
-      Position		      [250, 49, 285, 81]
-      Gain		      "K"
       Multiplication	      "Matrix(K*u)"
       ParameterDataTypeMode   "Inherit via internal rule"
       ParameterDataType	      "sfix(16)"
@@ -1857,15 +1830,6 @@ Model {
       DisplayOption	      "bar"
     }
     Block {
-      BlockType		      Mux
-      Name		      "Mux1"
-      SID		      86
-      Ports		      [4, 1]
-      Position		      [170, 24, 175, 106]
-      ShowName		      off
-      DisplayOption	      "bar"
-    }
-    Block {
       BlockType		      SubSystem
       Name		      "Pitch-kontroller"
       SID		      44
@@ -2016,38 +1980,6 @@ Model {
 	  DstPort		  2
 	}
       }
-    }
-    Block {
-      BlockType		      Sum
-      Name		      "Sum"
-      SID		      87
-      Ports		      [2, 1]
-      Position		      [205, 55, 225, 75]
-      ShowName		      off
-      IconShape		      "round"
-      Inputs		      "|+-"
-      InputSameDT	      off
-      OutDataTypeMode	      "Inherit via internal rule"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
-      SaturateOnIntegerOverflow	off
-    }
-    Block {
-      BlockType		      Sum
-      Name		      "Sum1"
-      SID		      89
-      Ports		      [2, 1]
-      Position		      [310, 55, 330, 75]
-      ShowName		      off
-      IconShape		      "round"
-      Inputs		      "|-+"
-      InputSameDT	      off
-      OutDataTypeMode	      "Inherit via internal rule"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
-      SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      ToWorkspace
@@ -2247,26 +2179,6 @@ Model {
     }
     Block {
       BlockType		      Scope
-      Name		      "pitch_in"
-      SID		      90
-      Ports		      [1]
-      Position		      [385, 49, 415, 81]
-      Floating		      off
-      Location		      [703, 591, 1027, 830]
-      Open		      off
-      NumInputPorts	      "1"
-      List {
-	ListType		AxesTitles
-	axes1			"%<SignalLabel>"
-      }
-      YMin		      "-0.2"
-      YMax		      "0.45"
-      SaveName		      "ScopeData4"
-      DataFormat	      "StructureWithTime"
-      SampleTime	      "0"
-    }
-    Block {
-      BlockType		      Scope
       Name		      "pitch_output"
       SID		      73
       Ports		      [1]
@@ -2293,7 +2205,7 @@ Model {
       Position		      [990, 154, 1020, 186]
       Floating		      off
       Location		      [152, 270, 1247, 780]
-      Open		      on
+      Open		      off
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
@@ -2344,13 +2256,6 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Demux"
-      SrcPort		      1
-      Points		      [5, 0; 0, -145]
-      DstBlock		      "Mux1"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Gain"
       SrcPort		      1
       Points		      [0, -225; -885, 0; 0, 215]
@@ -2360,31 +2265,15 @@ Model {
     Line {
       SrcBlock		      "Demux"
       SrcPort		      3
-      Points		      [30, 0]
-      Branch {
-	Points			[200, 0; 0, -20]
-	DstBlock		"Pitch-kontroller"
-	DstPort			2
-      }
-      Branch {
-	Points			[0, -135]
-	DstBlock		"Mux1"
-	DstPort			3
-      }
+      Points		      [230, 0; 0, -20]
+      DstBlock		      "Pitch-kontroller"
+      DstPort		      2
     }
     Line {
       SrcBlock		      "Demux"
       SrcPort		      4
-      Points		      [45, 0]
-      Branch {
-	DstBlock		"Pitch-kontroller"
-	DstPort			3
-      }
-      Branch {
-	Points			[0, -130]
-	DstBlock		"Mux1"
-	DstPort			4
-      }
+      DstBlock		      "Pitch-kontroller"
+      DstPort		      3
     }
     Line {
       SrcBlock		      "Demux"
@@ -2467,58 +2356,6 @@ Model {
       DstPort		      2
     }
     Line {
-      SrcBlock		      "Demux"
-      SrcPort		      2
-      Points		      [15, 0; 0, -140]
-      DstBlock		      "Mux1"
-      DstPort		      2
-    }
-    Line {
-      SrcBlock		      "Mux1"
-      SrcPort		      1
-      DstBlock		      "Sum"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "From\nWorkspace1"
-      SrcPort		      1
-      DstBlock		      "Sum"
-      DstPort		      2
-    }
-    Line {
-      SrcBlock		      "Sum"
-      SrcPort		      1
-      DstBlock		      "Gain1"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Gain1"
-      SrcPort		      1
-      DstBlock		      "Sum1"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "From\nWorkspace"
-      SrcPort		      1
-      Points		      [65, 0]
-      DstBlock		      "Sum1"
-      DstPort		      2
-    }
-    Line {
-      SrcBlock		      "Sum1"
-      SrcPort		      1
-      Points		      [15, 0]
-      Branch {
-	Points			[0, 90]
-	DstBlock		"Pitch-kontroller"
-	DstPort			1
-      }
-      Branch {
-	DstBlock		"pitch_in"
-	DstPort			1
-      }
-    }
-    Line {
       SrcBlock		      "Heli 3D"
       SrcPort		      1
       Points		      [15, 0; 0, -35]
@@ -2552,6 +2389,13 @@ Model {
       DstBlock		      "Add1"
       DstPort		      1
     }
+    Line {
+      SrcBlock		      "From\nWorkspace"
+      SrcPort		      1
+      Points		      [50, 0; 0, -15]
+      DstBlock		      "Pitch-kontroller"
+      DstPort		      1
+    }
   }
 }
 MatData {
@@ -2561,21 +2405,21 @@ MatData {
     Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7V"
     "YA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !  "
     "   %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @"
-    "    &          4    (     0    $    !          D    (         \"2 1D "
+    "    &          4    (     0    $    !          D    (         \"B 0D "
   }
   DataRecord {
     Tag			    DataTag1
     Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7V"
     "YA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !  "
     "   %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @"
-    "    &          4    (     0    $    !          D    (         \"2 1D "
+    "    &          4    (     0    $    !          D    (         \"B 0D "
   }
   DataRecord {
     Tag			    DataTag0
     Data		    "  %)30     .    6%<   8    (     @         %    \"     $    !     0         %  0 $0    $   !F    :7-?=6"
     "YI<75E          !O;&1?8FQO8VL          &]L9%]N86UE            :7-?;6]D96Q?8VQO<VEN9P!S971T:6YG<P           &ES7V1E"
     ";&5T960            .    ,     8    (    \"0(        %    \"     $    !     0         \"  $  0    X    X    !@    @"
-    "    &          4    (     0    $    !          D    (         \"2 1D .    .     8    (    !          %    \"     $"
+    "    &          4    (     0    $    !          D    (         \"B 0D .    .     8    (    !          %    \"     $"
     "    %     0         0    !0   $A)3\"TQ    #@   #     &    \"     D\"        !0    @    !     0    $          @ !  "
     "     .    B%4   8    (     @         %    \"     $    !     0         %  0 $P    $   !,    ;VQD7V)O87)D7W1Y<&4    "
     "  '$X                      !Q-                       <V5N<V]R87E?;6]D96Q?-C(V       .    2     8    (    !        "
