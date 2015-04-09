@@ -130,20 +130,20 @@
 			0 & 1 & 0				& 0				& 0				& 0				\\
 			0 & 0 & -K_{2}			& 0				& 0				& 0				\\
 			0 & 0 & 0				& 1				& 0				& 0				\\
-			0 & 0 & -K_{1} K_{pp}	& -K_{1} K_{pd}	& 0				& 0				\\
+			0 & 0 & -K_{1}K_{pp}	& -K_{1}K_{pd}	& 0				& 0				\\
 			0 & 0 & 0				& 0 			& 0				& 1				\\
-			0 & 0 & 0				& 0				& -K_{3} K_{ep}	& -K_{3} K_{ed} \\
+			0 & 0 & 0				& 0				& -K_{3}K_{ep}	& -K_{3}K_{ed}	\\
 		\end{bmatrix}
 	}_{\M{A}_{c}}
 	\V{x} +
 	\underbrace{
 		\begin{bmatrix}
-			0				& 0				\\
-			0				& 0				\\
-			0				& 0				\\
-			K_{1} K_{pp}	& 0				\\
-			0				& 0				\\
-			0				& K_{3} K_{ep}	\\
+			0			& 0				\\
+			0			& 0				\\
+			0			& 0				\\
+			K_{1}K_{pp}	& 0				\\
+			0			& 0				\\
+			0			& K_{3}K_{ep}	\\
 		\end{bmatrix}
 	}_{\M{B}_{c}}
 	\V{u}
@@ -160,3 +160,27 @@
 				+ \underbrace{h \M{B}_{c}}_{\M{B}} \V{u}_{k} \\
 \end{align}
 \end{subequations}
+
+\begin{equation}
+	\M{A} =
+	\begin{bmatrix}
+		1 & h & 0				& 0					& 0				& 0					\\
+		0 & 1 & -hK_{2}			& 0					& 0				& 0					\\
+		0 & 0 & 1				& h					& 0				& 0					\\
+		0 & 0 & -hK_{1}K_{pp}	& 1-hK_{1}K_{pd}	& 0				& 0					\\
+		0 & 0 & 0				& 0					& 1				& h					\\
+		0 & 0 & 0				& 0					& -hK_{3}K_{ep}	& 1-hK_{3}K_{ed}	\\
+	\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+	\M{B} =
+	\begin{bmatrix}
+		0				& 0				\\
+		0				& 0				\\
+		0				& 0				\\
+		hK_{1}K_{pp}	& 0				\\
+		0				& 0				\\
+		0				& hK_{3}K_{ep}	\\
+	\end{bmatrix}
+\end{equation}
