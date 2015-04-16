@@ -1,1 +1,97 @@
 \section{Optimal control of pitch/travel and elevation with and without feedback}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Discretisation with elevation states (10.4.1)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We will re-formulate the continuous system \eqref{eq:system} with additional states for elevation ($e$) and elevation rate ($\dot{e}$). The system with new state and input vectors \eqref{eq:state_input} and state equations \eqref{eq:state_eqns} yield the matrices shown in \eqref{eq:matrices}.
+
+\begin{equation}\label{eq:system}
+	\V{\dot{x}}	= \M{A} \V{x} + \M{B} \V{u}
+\end{equation}
+
+\begin{equation}\label{eq:state_input}
+	\V{x} =
+	\begin{bmatrix}
+		\lambda & r & p & \dot{p} & e & \dot{e}
+	\end{bmatrix}\transpose
+	,\qquad
+	\V{u} =
+	\begin{bmatrix}
+		p_{c} & e_{c}
+	\end{bmatrix}\transpose
+\end{equation}
+
+\begin{subequations}\label{eq:state_eqns}
+\begin{align}
+	\dot{\lambda}	&= r \\
+	\dot{r} 		&= - K_{2} p \\
+	\dot{p}			&= \dot{p} \\
+	\ddot{p}		&= K_{1} K_{pp} (p_{c} - p) - K_{1} K_{pd} \dot{p} \\
+	\dot{e}			&= \dot{e} \\
+	\ddot{e}		&= K_{3} K_{ep} (e_{c} - e) - K_{3} K_{ed} \dot{e}
+\end{align}
+\end{subequations}
+
+\begin{equation}\label{eq:matrices}
+	\V{\dot{x}} =
+	\underbrace{
+		\begin{bmatrix}
+			0 & 1 & 0				& 0				& 0				& 0				\\
+			0 & 0 & -K_{2}			& 0				& 0				& 0				\\
+			0 & 0 & 0				& 1				& 0				& 0				\\
+			0 & 0 & -K_{1}K_{pp}	& -K_{1}K_{pd}	& 0				& 0				\\
+			0 & 0 & 0				& 0 			& 0				& 1				\\
+			0 & 0 & 0				& 0				& -K_{3}K_{ep}	& -K_{3}K_{ed}	\\
+		\end{bmatrix}
+	}_{\M{A}_{c}}
+	\V{x} +
+	\underbrace{
+		\begin{bmatrix}
+			0			& 0				\\
+			0			& 0				\\
+			0			& 0				\\
+			K_{1}K_{pp}	& 0				\\
+			0			& 0				\\
+			0			& K_{3}K_{ep}	\\
+		\end{bmatrix}
+	}_{\M{B}_{c}}
+	\V{u}
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Discretisation again (10.4.2)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+As in section \ref{sec:disc1}, we again need to discretise the system. The result is in \eqref{eq:matrices_4.2}.
+
+\begin{subequations}
+\begin{align}
+	\V{x}_{k+1}	&= \V{x}_{k} + \left( \M{A}_{c} \V{x}_{k} + \M{B}_{c} \V{u}_{k} \right) h \\
+				&= \underbrace{\left( \Mc{I} + h \M{A}_{c} \right)}_{\M{A}} \V{x}_{k}
+				+ \underbrace{h \M{B}_{c}}_{\M{B}} \V{u}_{k} \\
+\end{align}
+\end{subequations}
+
+\begin{subequations}\label{eq:matrices_4.2}
+\begin{equation}
+	\M{A} =
+	\begin{bmatrix}
+		1 & h & 0				& 0					& 0				& 0					\\
+		0 & 1 & -hK_{2}			& 0					& 0				& 0					\\
+		0 & 0 & 1				& h					& 0				& 0					\\
+		0 & 0 & -hK_{1}K_{pp}	& 1-hK_{1}K_{pd}	& 0				& 0					\\
+		0 & 0 & 0				& 0					& 1				& h					\\
+		0 & 0 & 0				& 0					& -hK_{3}K_{ep}	& 1-hK_{3}K_{ed}	\\
+	\end{bmatrix}
+\end{equation}
+\begin{equation}
+	\M{B} =
+	\begin{bmatrix}
+		0				& 0				\\
+		0				& 0				\\
+		0				& 0				\\
+		hK_{1}K_{pp}	& 0				\\
+		0				& 0				\\
+		0				& hK_{3}K_{ep}	\\
+	\end{bmatrix}
+\end{equation}
+\end{subequations}
