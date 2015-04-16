@@ -15,85 +15,6 @@
 
 
 
-\subsection{10.2.1}
-
-\begin{subequations}
-\begin{align}
-	\V{x} 	&= \begin{bmatrix}\lambda & r & p & \dot{p} \end{bmatrix}\transpose \\
-	u 		&= p_{c}
-\end{align}
-\end{subequations}
-
-\begin{subequations}
-\begin{align}
-	\ddot{p} 		&= K_{1} K_{pp} (p_{c} - p) - K_{1} K_{pd} \dot{p} \\
-	\dot{r} 		&= - K_{a} p \\
-	\dot{\lambda} 	&= r \\
-	\dot{p} 		&= \dot{p}
-\end{align}
-\end{subequations}
-
-\begin{subequations}
-\begin{align}
-	K_{1} &= \frac{K_{f} l_{n}}{J_{p}} \\
-	K_{2} &= \frac{K_{p} l_{a}}{J_{t}}
-\end{align}
-\end{subequations}
-
-\begin{equation}
-	\V{\dot{x}} = \M{A}_{c} \V{x} + \M{B}_{u} u \\
-\end{equation}
-
-\begin{equation}
-	\V{\dot{x}} =
-	\begin{bmatrix}
-		0 & 1 & 0 				& 0 \\
-		0 & 0 & -K_{2} 			& 0 \\
-		0 & 0 & 0 				& 1 \\
-		0 & 0 & -K_{1}K_{pp}	& -K_{1}K_{pd}
-	\end{bmatrix}
-	\V{x} +
-	\begin{bmatrix}
-		0 \\ 0 \\ 0 \\ K_{1}K_{pp}
-	\end{bmatrix}
-	p_{c}
-\end{equation}
-
-
-
-\subsection{10.2.2}
-
-% \begin{equation}
-% 	y_{k+1} = y_{k} + h f(x_{k1} y_{k})
-% \end{equation}
-
-\begin{subequations}
-\begin{align}
-	\V{x}_{k+1} &= \V{x}_{k} + \left( \M{A}_{c} \V{x}_{k} + \M{B}_c u_{k} \right) h \\
-				&= \V{x}_{k} + h\M{A}_{c}\V{x}_{k} + h\M{B}_{c}u_{k} \\
-				&= \left( \Mc{I} + h\M{A}_{c} \right) \V{x}_{k} + h\M{B}_{c}u_{k} \\
-				&= \M{A}\V{x}_{k} + \M{B}u_{k}
-\end{align}
-\end{subequations}
-
-\begin{subequations}
-\begin{equation}
-	\M{A} = \Mc{I} + h\M{A}_{c} =
-	\begin{bmatrix}
-		1 & h & 0 & 0 \\
-		0 & 1 & -K_{2}h & 0 \\
-		0 & 0 & 1 & h \\
-		0 & 0 & -K_{1}K_{pp}h	& 1-K_{1}K_{pd}h
-	\end{bmatrix}
-\end{equation}
-\begin{equation}
-	\M{B} = h\M{B}_c =
-	\begin{bmatrix} 0 \\ 0 \\ 0 \\ K_{1}K_{pp}h \end{bmatrix}
-\end{equation}
-\end{subequations}
-
-
-
 \subsection{10.4.1}
 
 \begin{equation}
@@ -184,3 +105,9 @@
 		0				& hK_{3}K_{ep}	\\
 	\end{bmatrix}
 \end{equation}
+
+\subsection{Bibtex test}
+\cite{nocedal_numerical_2006} and \cite{_helicopter_2015} are pretty cool.
+
+\subsection{mcode test}
+\lstinputlisting[label={lst:dog}, caption={A dog.}]{blkdiag.m}

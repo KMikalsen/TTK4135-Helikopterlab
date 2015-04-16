@@ -7,26 +7,26 @@
 \usepackage{epigraph}						% Funny quotes
 \usepackage{bm}								% Bold face for vectors/matrices
 \usepackage[hidelinks]{hyperref}			% Invisible, clickable links in pdf
+\usepackage{listings}
+\usepackage{mcode}
+\bibliographystyle{ieeetr}					% Citations in IEEE style
+\lstset{frame=topbottom}
 
 \newcommand{\M}[1]{\bm{#1}} 				% Use for variable matrices
 \newcommand{\Mc}[1]{\mathbf{#1}} 			% Use for constant matrices (I, etc.)
 \newcommand{\V}[1]{\mathbf{#1}} 			% Use for vectors
 \newcommand{\transpose}{^{\text{T}}} 		% Make a guess, bitch
-\newcommand{\sub}[1]{_{\textnormal{#1}}} 	% For upright subscript
+\newcommand{\sub}[1]{_{\textnormal{#1}}} 	% For upright subscripts
     
 \begin{document}
+
 \tableofcontents
 
-\newpage
-\include{control_pitch_travel_without_feedback}
-
-\newpage
-\include{control_pitch_travel_with_LQ}
-
-\newpage
-\include{control_pitch_travel_elevation_with_without_feedback}
-
-\newpage
+\include{10.2}
+\include{10.3}
+\include{10.4}
 \include{pastebin}
+
+\bibliography{ref-helikopter}
 
 \end{document}
