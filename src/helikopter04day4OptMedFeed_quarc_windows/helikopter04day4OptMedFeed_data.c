@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopter04day4OptMedFeed.mdl".
  *
- * Model version              : 1.85
+ * Model version              : 1.90
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Apr 09 13:04:18 2015
+ * C source code generated on : Thu Apr 16 12:35:18 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -49,12 +49,6 @@ Parameters_helikopter04day4OptM helikopter04day4OptMedFeed_P = {
   0.0,                                 /* Expression: final_analog_outputs
                                         * Referenced by: '<Root>/HIL Initialize'
                                         */
-  0.105,                               /* Expression: KalibElevasjon
-                                        * Referenced by: '<S2>/Kalibrer-Elev'
-                                        */
-  -30.0,                               /* Expression: -30
-                                        * Referenced by: '<Root>/Constant'
-                                        */
   360.0,                               /* Expression: 360
                                         * Referenced by: '<Root>/Constant1'
                                         */
@@ -63,18 +57,6 @@ Parameters_helikopter04day4OptM helikopter04day4OptMedFeed_P = {
                                         */
   50.0,                                /* Computed Parameter: VandringLavpass_C
                                         * Referenced by: '<S2>/Vandring Lavpass'
-                                        */
-  0.0879,                              /* Expression: KalibPitch
-                                        * Referenced by: '<S2>/Kalibrer-Pitch'
-                                        */
-  0.0,                                 /* Expression: 0
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
-  0.0,                                 /* Expression: inf
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
-  0.0,                                 /* Expression: -inf
-                                        * Referenced by: '<S1>/Integrator'
                                         */
   -0.088,                              /* Expression: KalibVandring
                                         * Referenced by: '<S2>/Kalibrer -Vandring'
@@ -88,6 +70,9 @@ Parameters_helikopter04day4OptM helikopter04day4OptMedFeed_P = {
   20.0,                                /* Computed Parameter: VandringDeriv_D
                                         * Referenced by: '<S2>/Vandring Deriv'
                                         */
+  0.0879,                              /* Expression: KalibPitch
+                                        * Referenced by: '<S2>/Kalibrer-Pitch'
+                                        */
   -100.0,                              /* Computed Parameter: TransferFcn4_A
                                         * Referenced by: '<S2>/Transfer Fcn4'
                                         */
@@ -96,6 +81,12 @@ Parameters_helikopter04day4OptM helikopter04day4OptMedFeed_P = {
                                         */
   100.0,                               /* Computed Parameter: TransferFcn4_D
                                         * Referenced by: '<S2>/Transfer Fcn4'
+                                        */
+  0.105,                               /* Expression: KalibElevasjon
+                                        * Referenced by: '<S2>/Kalibrer-Elev'
+                                        */
+  -30.0,                               /* Expression: -30
+                                        * Referenced by: '<Root>/Constant'
                                         */
   -50.0,                               /* Computed Parameter: TransferFcn5_A
                                         * Referenced by: '<S2>/Transfer Fcn5'
@@ -116,17 +107,26 @@ Parameters_helikopter04day4OptM helikopter04day4OptMedFeed_P = {
     1.7453292519943295E-002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     1.7453292519943295E-002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     1.7453292519943295E-002 },
-  -5.5,                                /* Expression: -K_ed
-                                        * Referenced by: '<S1>/K_ed'
-                                        */
 
   /*  Expression: K
    * Referenced by: '<Root>/Gain1'
    */
-  { -1.9963826865896617E-001, -1.0390441505378906E-014, -1.1753469435617514E+000,
-    -3.4510133367209852E-014, -4.9132048298058895E-001, 2.9372735566102839E-015,
-    8.7725428338004452E-002, 4.3107229276606405E-016, -7.7938741764237687E-017,
-    2.2928168292815627E+000, 6.4513263551637490E-017, 2.4576884514730843E+000 },
+  { -1.1668603831376542E-001, -2.5484970705560689E-015, -5.8282997951806936E-001,
+    -1.6181804607515191E-015, -7.9204616247564186E-001, -2.5629500904676770E-016,
+    1.6878428379780881E-002, -7.1189609554566153E-017, 7.0790470617274440E-017,
+    3.0240267973242285E-001, 7.8463684796931018E-017, 9.6350800518762370E-001 },
+  0.0,                                 /* Expression: 0
+                                        * Referenced by: '<S1>/Integrator'
+                                        */
+  0.0,                                 /* Expression: inf
+                                        * Referenced by: '<S1>/Integrator'
+                                        */
+  0.0,                                 /* Expression: -inf
+                                        * Referenced by: '<S1>/Integrator'
+                                        */
+  -5.5,                                /* Expression: -K_ed
+                                        * Referenced by: '<S1>/K_ed'
+                                        */
   2.2,                                 /* Expression: K_ei
                                         * Referenced by: '<S1>/K_ei'
                                         */

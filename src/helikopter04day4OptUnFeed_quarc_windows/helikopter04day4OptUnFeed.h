@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopter04day4OptUnFeed.mdl".
  *
- * Model version              : 1.81
+ * Model version              : 1.84
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Apr 09 12:38:45 2015
+ * C source code generated on : Thu Apr 16 12:41:32 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -785,8 +785,11 @@ typedef struct {
   real_T Add;                          /* '<Root>/Add' */
   real_T VandringLavpass;              /* '<S2>/Vandring Lavpass' */
   real_T Add1;                         /* '<Root>/Add1' */
-  real_T KalibrerPitch;                /* '<S2>/Kalibrer-Pitch' */
   real_T KalibrerVandring;             /* '<S2>/Kalibrer -Vandring' */
+  real_T VandringDeriv;                /* '<S2>/Vandring Deriv' */
+  real_T TransferFcn5;                 /* '<S2>/Transfer Fcn5' */
+  real_T KalibrerPitch;                /* '<S2>/Kalibrer-Pitch' */
+  real_T TransferFcn4;                 /* '<S2>/Transfer Fcn4' */
   real_T K_ei;                         /* '<S1>/K_ei' */
   real_T SatB;                         /* '<S2>/Sat B' */
   real_T Sat;                          /* '<S2>/Sat' */
@@ -809,6 +812,22 @@ typedef struct {
   struct {
     void *LoggedData;
   } ToWorkspace1_PWORK;                /* '<Root>/To Workspace1' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace2_PWORK;                /* '<Root>/To Workspace2' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace3_PWORK;                /* '<Root>/To Workspace3' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace4_PWORK;                /* '<Root>/To Workspace4' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace5_PWORK;                /* '<Root>/To Workspace5' */
 
   struct {
     void *LoggedData;
@@ -870,28 +889,28 @@ typedef struct {
 /* Continuous states (auto storage) */
 typedef struct {
   real_T VandringLavpass_CSTATE;       /* '<S2>/Vandring Lavpass' */
-  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
   real_T VandringDeriv_CSTATE;         /* '<S2>/Vandring Deriv' */
-  real_T TransferFcn4_CSTATE;          /* '<S2>/Transfer Fcn4' */
   real_T TransferFcn5_CSTATE;          /* '<S2>/Transfer Fcn5' */
+  real_T TransferFcn4_CSTATE;          /* '<S2>/Transfer Fcn4' */
+  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
 } ContinuousStates_helikopter04da;
 
 /* State derivatives (auto storage) */
 typedef struct {
   real_T VandringLavpass_CSTATE;       /* '<S2>/Vandring Lavpass' */
-  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
   real_T VandringDeriv_CSTATE;         /* '<S2>/Vandring Deriv' */
-  real_T TransferFcn4_CSTATE;          /* '<S2>/Transfer Fcn4' */
   real_T TransferFcn5_CSTATE;          /* '<S2>/Transfer Fcn5' */
+  real_T TransferFcn4_CSTATE;          /* '<S2>/Transfer Fcn4' */
+  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
 } StateDerivatives_helikopter04da;
 
 /* State disabled  */
 typedef struct {
   boolean_T VandringLavpass_CSTATE;    /* '<S2>/Vandring Lavpass' */
-  boolean_T Integrator_CSTATE;         /* '<S1>/Integrator' */
   boolean_T VandringDeriv_CSTATE;      /* '<S2>/Vandring Deriv' */
-  boolean_T TransferFcn4_CSTATE;       /* '<S2>/Transfer Fcn4' */
   boolean_T TransferFcn5_CSTATE;       /* '<S2>/Transfer Fcn5' */
+  boolean_T TransferFcn4_CSTATE;       /* '<S2>/Transfer Fcn4' */
+  boolean_T Integrator_CSTATE;         /* '<S1>/Integrator' */
 } StateDisabled_helikopter04day4O;
 
 #ifndef ODE1_INTG
@@ -961,18 +980,6 @@ struct Parameters_helikopter04day4OptU_ {
   real_T VandringLavpass_C;            /* Computed Parameter: VandringLavpass_C
                                         * Referenced by: '<S2>/Vandring Lavpass'
                                         */
-  real_T KalibrerPitch_Gain;           /* Expression: KalibPitch
-                                        * Referenced by: '<S2>/Kalibrer-Pitch'
-                                        */
-  real_T Integrator_IC;                /* Expression: 0
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
-  real_T Integrator_UpperSat;          /* Expression: inf
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
-  real_T Integrator_LowerSat;          /* Expression: -inf
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
   real_T KalibrerVandring_Gain;        /* Expression: KalibVandring
                                         * Referenced by: '<S2>/Kalibrer -Vandring'
                                         */
@@ -985,6 +992,18 @@ struct Parameters_helikopter04day4OptU_ {
   real_T VandringDeriv_D;              /* Computed Parameter: VandringDeriv_D
                                         * Referenced by: '<S2>/Vandring Deriv'
                                         */
+  real_T TransferFcn5_A;               /* Computed Parameter: TransferFcn5_A
+                                        * Referenced by: '<S2>/Transfer Fcn5'
+                                        */
+  real_T TransferFcn5_C;               /* Computed Parameter: TransferFcn5_C
+                                        * Referenced by: '<S2>/Transfer Fcn5'
+                                        */
+  real_T TransferFcn5_D;               /* Computed Parameter: TransferFcn5_D
+                                        * Referenced by: '<S2>/Transfer Fcn5'
+                                        */
+  real_T KalibrerPitch_Gain;           /* Expression: KalibPitch
+                                        * Referenced by: '<S2>/Kalibrer-Pitch'
+                                        */
   real_T TransferFcn4_A;               /* Computed Parameter: TransferFcn4_A
                                         * Referenced by: '<S2>/Transfer Fcn4'
                                         */
@@ -994,14 +1013,14 @@ struct Parameters_helikopter04day4OptU_ {
   real_T TransferFcn4_D;               /* Computed Parameter: TransferFcn4_D
                                         * Referenced by: '<S2>/Transfer Fcn4'
                                         */
-  real_T TransferFcn5_A;               /* Computed Parameter: TransferFcn5_A
-                                        * Referenced by: '<S2>/Transfer Fcn5'
+  real_T Integrator_IC;                /* Expression: 0
+                                        * Referenced by: '<S1>/Integrator'
                                         */
-  real_T TransferFcn5_C;               /* Computed Parameter: TransferFcn5_C
-                                        * Referenced by: '<S2>/Transfer Fcn5'
+  real_T Integrator_UpperSat;          /* Expression: inf
+                                        * Referenced by: '<S1>/Integrator'
                                         */
-  real_T TransferFcn5_D;               /* Computed Parameter: TransferFcn5_D
-                                        * Referenced by: '<S2>/Transfer Fcn5'
+  real_T Integrator_LowerSat;          /* Expression: -inf
+                                        * Referenced by: '<S1>/Integrator'
                                         */
   real_T Gain_Gain[36];                /* Expression: eye(6)*pi/180
                                         * Referenced by: '<Root>/Gain'

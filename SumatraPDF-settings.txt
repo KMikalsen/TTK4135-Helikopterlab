@@ -75,8 +75,8 @@ FileStates [
 		OpenCount = 1
 		UseDefaultState = false
 		DisplayMode = continuous
-		ScrollPos = -1 487
-		PageNo = 18
+		ScrollPos = -1 139
+		PageNo = 19
 		Zoom = 100
 		Rotation = 0
 		WindowState = 1
@@ -89,4 +89,4 @@ FileStates [
 	]
 ]
 TimeOfLastUpdateCheck = 0 0
-OpenCountWeek = 222
+OpenCountWeek = 223

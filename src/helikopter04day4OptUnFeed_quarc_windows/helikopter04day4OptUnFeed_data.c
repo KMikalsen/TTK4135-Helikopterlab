@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopter04day4OptUnFeed.mdl".
  *
- * Model version              : 1.81
+ * Model version              : 1.84
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Apr 09 12:38:45 2015
+ * C source code generated on : Thu Apr 16 12:41:32 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -64,18 +64,6 @@ Parameters_helikopter04day4OptU helikopter04day4OptUnFeed_P = {
   50.0,                                /* Computed Parameter: VandringLavpass_C
                                         * Referenced by: '<S2>/Vandring Lavpass'
                                         */
-  0.0879,                              /* Expression: KalibPitch
-                                        * Referenced by: '<S2>/Kalibrer-Pitch'
-                                        */
-  0.0,                                 /* Expression: 0
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
-  0.0,                                 /* Expression: inf
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
-  0.0,                                 /* Expression: -inf
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
   -0.088,                              /* Expression: KalibVandring
                                         * Referenced by: '<S2>/Kalibrer -Vandring'
                                         */
@@ -88,6 +76,18 @@ Parameters_helikopter04day4OptU helikopter04day4OptUnFeed_P = {
   20.0,                                /* Computed Parameter: VandringDeriv_D
                                         * Referenced by: '<S2>/Vandring Deriv'
                                         */
+  -50.0,                               /* Computed Parameter: TransferFcn5_A
+                                        * Referenced by: '<S2>/Transfer Fcn5'
+                                        */
+  -2500.0,                             /* Computed Parameter: TransferFcn5_C
+                                        * Referenced by: '<S2>/Transfer Fcn5'
+                                        */
+  50.0,                                /* Computed Parameter: TransferFcn5_D
+                                        * Referenced by: '<S2>/Transfer Fcn5'
+                                        */
+  0.0879,                              /* Expression: KalibPitch
+                                        * Referenced by: '<S2>/Kalibrer-Pitch'
+                                        */
   -100.0,                              /* Computed Parameter: TransferFcn4_A
                                         * Referenced by: '<S2>/Transfer Fcn4'
                                         */
@@ -97,14 +97,14 @@ Parameters_helikopter04day4OptU helikopter04day4OptUnFeed_P = {
   100.0,                               /* Computed Parameter: TransferFcn4_D
                                         * Referenced by: '<S2>/Transfer Fcn4'
                                         */
-  -50.0,                               /* Computed Parameter: TransferFcn5_A
-                                        * Referenced by: '<S2>/Transfer Fcn5'
+  0.0,                                 /* Expression: 0
+                                        * Referenced by: '<S1>/Integrator'
                                         */
-  -2500.0,                             /* Computed Parameter: TransferFcn5_C
-                                        * Referenced by: '<S2>/Transfer Fcn5'
+  0.0,                                 /* Expression: inf
+                                        * Referenced by: '<S1>/Integrator'
                                         */
-  50.0,                                /* Computed Parameter: TransferFcn5_D
-                                        * Referenced by: '<S2>/Transfer Fcn5'
+  0.0,                                 /* Expression: -inf
+                                        * Referenced by: '<S1>/Integrator'
                                         */
 
   /*  Expression: eye(6)*pi/180

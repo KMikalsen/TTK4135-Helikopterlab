@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.78"
+    ComputedModelVersion    "1.79"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "jongf"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 12 14:09:25 2015"
-  RTWModifiedTimeStamp	  348070164
-  ModelVersionFormat	  "1.%<AutoIncrement:78>"
+  LastModifiedDate	  "Thu Apr 16 12:50:58 2015"
+  RTWModifiedTimeStamp	  351089457
+  ModelVersionFormat	  "1.%<AutoIncrement:79>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -945,7 +945,7 @@ Model {
   }
   System {
     Name		    "helikopter04day2"
-    Location		    [53, 142, 1608, 878]
+    Location		    [-41, 156, 1314, 892]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -959,7 +959,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    92
+    SIDHighWatermark	    97
     Block {
       BlockType		      Sum
       Name		      "Add"
@@ -1986,7 +1986,7 @@ Model {
       Name		      "To Workspace"
       SID		      76
       Ports		      [1]
-      Position		      [960, 375, 1020, 405]
+      Position		      [955, 405, 1015, 435]
       VariableName	      "elevasjon"
       MaxDataPoints	      "inf"
       SampleTime	      "-1"
@@ -1999,6 +1999,50 @@ Model {
       Ports		      [1]
       Position		      [1000, 85, 1060, 115]
       VariableName	      "travel"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Structure With Time"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace2"
+      SID		      93
+      Ports		      [1]
+      Position		      [1080, 190, 1140, 220]
+      VariableName	      "travelRate"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Structure With Time"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace3"
+      SID		      96
+      Ports		      [1]
+      Position		      [1140, 375, 1200, 405]
+      VariableName	      "elevasjonRate"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Structure With Time"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace4"
+      SID		      94
+      Ports		      [1]
+      Position		      [1070, 235, 1130, 265]
+      VariableName	      "Pitch"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Structure With Time"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace5"
+      SID		      95
+      Ports		      [1]
+      Position		      [1070, 335, 1130, 365]
+      VariableName	      "PitchRate"
       MaxDataPoints	      "inf"
       SampleTime	      "-1"
       SaveFormat	      "Structure With Time"
@@ -2233,8 +2277,16 @@ Model {
     Line {
       SrcBlock		      "Heli 3D"
       SrcPort		      4
-      DstBlock		      "Mux"
-      DstPort		      4
+      Points		      [30, 0]
+      Branch {
+	DstBlock		"Mux"
+	DstPort			4
+      }
+      Branch {
+	Points			[0, 105]
+	DstBlock		"To Workspace5"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "Heli 3D"
@@ -2246,8 +2298,16 @@ Model {
     Line {
       SrcBlock		      "Heli 3D"
       SrcPort		      6
-      DstBlock		      "Mux"
-      DstPort		      6
+      Points		      [30, 0]
+      Branch {
+	DstBlock		"Mux"
+	DstPort			6
+      }
+      Branch {
+	Points			[0, 85]
+	DstBlock		"To Workspace3"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "Mux"
@@ -2317,7 +2377,7 @@ Model {
 	  DstPort		  1
 	}
 	Branch {
-	  Points		  [0, 35]
+	  Points		  [0, 65]
 	  DstBlock		  "To Workspace"
 	  DstPort		  1
 	}
@@ -2332,16 +2392,32 @@ Model {
 	DstPort			3
       }
       Branch {
-	Points			[0, 80; 145, 0]
-	DstBlock		"pitch_output"
-	DstPort			1
+	Points			[0, 80; 130, 0]
+	Branch {
+	  Points		  [15, 0]
+	  DstBlock		  "pitch_output"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, -45]
+	  DstBlock		  "To Workspace4"
+	  DstPort		  1
+	}
       }
     }
     Line {
       SrcBlock		      "Heli 3D"
       SrcPort		      2
-      DstBlock		      "Mux"
-      DstPort		      2
+      Points		      [40, 0]
+      Branch {
+	DstBlock		"Mux"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 20]
+	DstBlock		"To Workspace2"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "V_d/V_s --> V_f/V_b"
@@ -2405,21 +2481,21 @@ MatData {
     Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7V"
     "YA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !  "
     "   %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @"
-    "    &          4    (     0    $    !          D    (         \"B 0D "
+    "    &          4    (     0    $    !          D    (         \"R 2D "
   }
   DataRecord {
     Tag			    DataTag1
     Data		    "  %)30     .    & $   8    (     @         %    \"     $    !     0         %  0 #0    $    G    ;VQD7V"
     "YA;64      &ES7V1E;&5T960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4    !         !  "
     "   %    2$E,+3$    .    ,     8    (    \"0(        %    \"     $    !     0         \"  $       X    X    !@    @"
-    "    &          4    (     0    $    !          D    (         \"B 0D "
+    "    &          4    (     0    $    !          D    (         \"R 2D "
   }
   DataRecord {
     Tag			    DataTag0
     Data		    "  %)30     .    6%<   8    (     @         %    \"     $    !     0         %  0 $0    $   !F    :7-?=6"
     "YI<75E          !O;&1?8FQO8VL          &]L9%]N86UE            :7-?;6]D96Q?8VQO<VEN9P!S971T:6YG<P           &ES7V1E"
     ";&5T960            .    ,     8    (    \"0(        %    \"     $    !     0         \"  $  0    X    X    !@    @"
-    "    &          4    (     0    $    !          D    (         \"B 0D .    .     8    (    !          %    \"     $"
+    "    &          4    (     0    $    !          D    (         \"R 2D .    .     8    (    !          %    \"     $"
     "    %     0         0    !0   $A)3\"TQ    #@   #     &    \"     D\"        !0    @    !     0    $          @ !  "
     "     .    B%4   8    (     @         %    \"     $    !     0         %  0 $P    $   !,    ;VQD7V)O87)D7W1Y<&4    "
     "  '$X                      !Q-                       <V5N<V]R87E?;6]D96Q?-C(V       .    2     8    (    !        "

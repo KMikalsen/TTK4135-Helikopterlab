@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopter04day4OptUnFeed.mdl".
  *
- * Model version              : 1.81
+ * Model version              : 1.84
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Apr 09 12:38:45 2015
+ * C source code generated on : Thu Apr 16 12:41:32 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -65,10 +65,8 @@ void helikopter04day4OptUnFeed_output(int_T tid)
   real_T rtb_HILReadEncoder_o1;
   real_T rtb_HILReadEncoder_o2;
   real_T rtb_HILReadEncoder_o3;
-  real_T rtb_VandringDeriv;
-  real_T rtb_Gain2;
   real_T rtb_Saturation_b;
-  real_T rtb_Gain1;
+  real_T rtb_Sum;
   real_T rtb_Gain[6];
   real_T rtb_K_ed;
   real_T tmp[6];
@@ -140,9 +138,42 @@ void helikopter04day4OptUnFeed_output(int_T tid)
   helikopter04day4OptUnFeed_B.Add1 = helikopter04day4OptUnFeed_P.Constant1_Value
     + helikopter04day4OptUnFeed_B.VandringLavpass;
   if (rtmIsMajorTimeStep(helikopter04day4OptUnFeed_M)) {
+    /* Gain: '<S2>/Kalibrer -Vandring' */
+    helikopter04day4OptUnFeed_B.KalibrerVandring =
+      helikopter04day4OptUnFeed_P.KalibrerVandring_Gain * rtb_HILReadEncoder_o1;
+  }
+
+  /* TransferFcn: '<S2>/Vandring Deriv' */
+  helikopter04day4OptUnFeed_B.VandringDeriv =
+    helikopter04day4OptUnFeed_P.VandringDeriv_D*
+    helikopter04day4OptUnFeed_B.KalibrerVandring;
+  helikopter04day4OptUnFeed_B.VandringDeriv +=
+    helikopter04day4OptUnFeed_P.VandringDeriv_C*
+    helikopter04day4OptUnFeed_X.VandringDeriv_CSTATE;
+  if (rtmIsMajorTimeStep(helikopter04day4OptUnFeed_M)) {
+  }
+
+  /* TransferFcn: '<S2>/Transfer Fcn5' */
+  helikopter04day4OptUnFeed_B.TransferFcn5 =
+    helikopter04day4OptUnFeed_P.TransferFcn5_D*
+    helikopter04day4OptUnFeed_B.KalibrerElev;
+  helikopter04day4OptUnFeed_B.TransferFcn5 +=
+    helikopter04day4OptUnFeed_P.TransferFcn5_C*
+    helikopter04day4OptUnFeed_X.TransferFcn5_CSTATE;
+  if (rtmIsMajorTimeStep(helikopter04day4OptUnFeed_M)) {
     /* Gain: '<S2>/Kalibrer-Pitch' */
     helikopter04day4OptUnFeed_B.KalibrerPitch =
       helikopter04day4OptUnFeed_P.KalibrerPitch_Gain * rtb_HILReadEncoder_o2;
+  }
+
+  /* TransferFcn: '<S2>/Transfer Fcn4' */
+  helikopter04day4OptUnFeed_B.TransferFcn4 =
+    helikopter04day4OptUnFeed_P.TransferFcn4_D*
+    helikopter04day4OptUnFeed_B.KalibrerPitch;
+  helikopter04day4OptUnFeed_B.TransferFcn4 +=
+    helikopter04day4OptUnFeed_P.TransferFcn4_C*
+    helikopter04day4OptUnFeed_X.TransferFcn4_CSTATE;
+  if (rtmIsMajorTimeStep(helikopter04day4OptUnFeed_M)) {
   }
 
   /* Integrator: '<S1>/Integrator'
@@ -161,39 +192,16 @@ void helikopter04day4OptUnFeed_output(int_T tid)
   }
 
   rtb_Saturation_b = helikopter04day4OptUnFeed_X.Integrator_CSTATE;
-  if (rtmIsMajorTimeStep(helikopter04day4OptUnFeed_M)) {
-    /* Gain: '<S2>/Kalibrer -Vandring' */
-    helikopter04day4OptUnFeed_B.KalibrerVandring =
-      helikopter04day4OptUnFeed_P.KalibrerVandring_Gain * rtb_HILReadEncoder_o1;
-  }
-
-  /* TransferFcn: '<S2>/Vandring Deriv' */
-  rtb_VandringDeriv = helikopter04day4OptUnFeed_P.VandringDeriv_D*
-    helikopter04day4OptUnFeed_B.KalibrerVandring;
-  rtb_VandringDeriv += helikopter04day4OptUnFeed_P.VandringDeriv_C*
-    helikopter04day4OptUnFeed_X.VandringDeriv_CSTATE;
-
-  /* TransferFcn: '<S2>/Transfer Fcn4' */
-  rtb_Gain2 = helikopter04day4OptUnFeed_P.TransferFcn4_D*
-    helikopter04day4OptUnFeed_B.KalibrerPitch;
-  rtb_Gain2 += helikopter04day4OptUnFeed_P.TransferFcn4_C*
-    helikopter04day4OptUnFeed_X.TransferFcn4_CSTATE;
-
-  /* TransferFcn: '<S2>/Transfer Fcn5' */
-  rtb_Gain1 = helikopter04day4OptUnFeed_P.TransferFcn5_D*
-    helikopter04day4OptUnFeed_B.KalibrerElev;
-  rtb_Gain1 += helikopter04day4OptUnFeed_P.TransferFcn5_C*
-    helikopter04day4OptUnFeed_X.TransferFcn5_CSTATE;
 
   /* Gain: '<Root>/Gain' incorporates:
    *  SignalConversion: '<Root>/TmpSignal ConversionAtGainInport1'
    */
   tmp[0] = helikopter04day4OptUnFeed_B.Add1;
-  tmp[1] = rtb_VandringDeriv;
+  tmp[1] = helikopter04day4OptUnFeed_B.VandringDeriv;
   tmp[2] = helikopter04day4OptUnFeed_B.KalibrerPitch;
-  tmp[3] = rtb_Gain2;
+  tmp[3] = helikopter04day4OptUnFeed_B.TransferFcn4;
   tmp[4] = helikopter04day4OptUnFeed_B.Add;
-  tmp[5] = rtb_Gain1;
+  tmp[5] = helikopter04day4OptUnFeed_B.TransferFcn5;
   for (tmp_0 = 0; tmp_0 < 6; tmp_0++) {
     rtb_Gain[tmp_0] = 0.0;
     for (tmp_1 = 0; tmp_1 < 6; tmp_1++) {
@@ -241,9 +249,9 @@ void helikopter04day4OptUnFeed_output(int_T tid)
       real_T t2 = pTimeValues[currTimeIndex + 1];
       if (t1 == t2) {
         if (t < t1) {
-          rtb_Gain1 = pDataValues[currTimeIndex];
+          rtb_Sum = pDataValues[currTimeIndex];
         } else {
-          rtb_Gain1 = pDataValues[currTimeIndex + 1];
+          rtb_Sum = pDataValues[currTimeIndex + 1];
         }
       } else {
         real_T f1 = (t2 - t) / (t2 - t1);
@@ -253,23 +261,23 @@ void helikopter04day4OptUnFeed_output(int_T tid)
         int_T TimeIndex= currTimeIndex;
         d1 = pDataValues[TimeIndex];
         d2 = pDataValues[TimeIndex + 1];
-        rtb_Gain1 = (real_T) rtInterpolate(d1, d2, f1, f2);
+        rtb_Sum = (real_T) rtInterpolate(d1, d2, f1, f2);
         pDataValues += 81;
       }
     }
   }
 
   /* Sum: '<S1>/Sum' */
-  rtb_Gain1 -= rtb_Gain[4];
+  rtb_Sum -= rtb_Gain[4];
 
   /* Gain: '<S1>/K_ei' */
   helikopter04day4OptUnFeed_B.K_ei = helikopter04day4OptUnFeed_P.K_ei_Gain *
-    rtb_Gain1;
+    rtb_Sum;
 
   /* Sum: '<S1>/Sum1' incorporates:
    *  Gain: '<S1>/K_ep'
    */
-  rtb_Saturation_b = (helikopter04day4OptUnFeed_P.K_ep_Gain * rtb_Gain1 +
+  rtb_Saturation_b = (helikopter04day4OptUnFeed_P.K_ep_Gain * rtb_Sum +
                       rtb_Saturation_b) + rtb_K_ed;
 
   /* Saturate: '<S1>/Saturation' */
@@ -313,9 +321,9 @@ void helikopter04day4OptUnFeed_output(int_T tid)
       real_T t2 = pTimeValues[currTimeIndex + 1];
       if (t1 == t2) {
         if (t < t1) {
-          rtb_Gain1 = pDataValues[currTimeIndex];
+          rtb_Sum = pDataValues[currTimeIndex];
         } else {
-          rtb_Gain1 = pDataValues[currTimeIndex + 1];
+          rtb_Sum = pDataValues[currTimeIndex + 1];
         }
       } else {
         real_T f1 = (t2 - t) / (t2 - t1);
@@ -325,7 +333,7 @@ void helikopter04day4OptUnFeed_output(int_T tid)
         int_T TimeIndex= currTimeIndex;
         d1 = pDataValues[TimeIndex];
         d2 = pDataValues[TimeIndex + 1];
-        rtb_Gain1 = (real_T) rtInterpolate(d1, d2, f1, f2);
+        rtb_Sum = (real_T) rtInterpolate(d1, d2, f1, f2);
         pDataValues += 81;
       }
     }
@@ -340,20 +348,20 @@ void helikopter04day4OptUnFeed_output(int_T tid)
    *  Saturate: '<S3>/Saturation'
    *  Sum: '<S3>/Sum1'
    */
-  rtb_Gain1 = (rt_SATURATE(rtb_Gain1,
-    helikopter04day4OptUnFeed_P.Saturation_LowerSat_j,
-    helikopter04day4OptUnFeed_P.Saturation_UpperSat_c) - rtb_Gain[2]) *
+  rtb_Sum = (rt_SATURATE(rtb_Sum,
+              helikopter04day4OptUnFeed_P.Saturation_LowerSat_j,
+              helikopter04day4OptUnFeed_P.Saturation_UpperSat_c) - rtb_Gain[2]) *
     helikopter04day4OptUnFeed_P.K_pp_Gain -
     helikopter04day4OptUnFeed_P.K_pd_Gain * rtb_Gain[3];
 
   /* Gain: '<S4>/Gain2' incorporates:
    *  Sum: '<S4>/Sum4'
    */
-  rtb_Gain2 = (rtb_Saturation_b - rtb_Gain1) *
+  rtb_K_ed = (rtb_Saturation_b - rtb_Sum) *
     helikopter04day4OptUnFeed_P.Gain2_Gain;
 
   /* Saturate: '<S2>/Sat B' */
-  helikopter04day4OptUnFeed_B.SatB = rt_SATURATE(rtb_Gain2,
+  helikopter04day4OptUnFeed_B.SatB = rt_SATURATE(rtb_K_ed,
     helikopter04day4OptUnFeed_P.SatB_LowerSat,
     helikopter04day4OptUnFeed_P.SatB_UpperSat);
   if (rtmIsMajorTimeStep(helikopter04day4OptUnFeed_M)) {
@@ -362,11 +370,11 @@ void helikopter04day4OptUnFeed_output(int_T tid)
   /* Gain: '<S4>/Gain1' incorporates:
    *  Sum: '<S4>/Sum3'
    */
-  rtb_Gain1 = (rtb_Gain1 + rtb_Saturation_b) *
+  rtb_K_ed = (rtb_Sum + rtb_Saturation_b) *
     helikopter04day4OptUnFeed_P.Gain1_Gain;
 
   /* Saturate: '<S2>/Sat' */
-  helikopter04day4OptUnFeed_B.Sat = rt_SATURATE(rtb_Gain1,
+  helikopter04day4OptUnFeed_B.Sat = rt_SATURATE(rtb_K_ed,
     helikopter04day4OptUnFeed_P.Sat_LowerSat,
     helikopter04day4OptUnFeed_P.Sat_UpperSat);
   if (rtmIsMajorTimeStep(helikopter04day4OptUnFeed_M)) {
@@ -466,6 +474,39 @@ void helikopter04day4OptUnFeed_derivatives(void)
       helikopter04day4OptUnFeed_X.VandringLavpass_CSTATE;
   }
 
+  /* Derivatives for TransferFcn: '<S2>/Vandring Deriv' */
+  {
+    ((StateDerivatives_helikopter04da *)
+      helikopter04day4OptUnFeed_M->ModelData.derivs)->VandringDeriv_CSTATE =
+      helikopter04day4OptUnFeed_B.KalibrerVandring;
+    ((StateDerivatives_helikopter04da *)
+      helikopter04day4OptUnFeed_M->ModelData.derivs)->VandringDeriv_CSTATE +=
+      (helikopter04day4OptUnFeed_P.VandringDeriv_A)*
+      helikopter04day4OptUnFeed_X.VandringDeriv_CSTATE;
+  }
+
+  /* Derivatives for TransferFcn: '<S2>/Transfer Fcn5' */
+  {
+    ((StateDerivatives_helikopter04da *)
+      helikopter04day4OptUnFeed_M->ModelData.derivs)->TransferFcn5_CSTATE =
+      helikopter04day4OptUnFeed_B.KalibrerElev;
+    ((StateDerivatives_helikopter04da *)
+      helikopter04day4OptUnFeed_M->ModelData.derivs)->TransferFcn5_CSTATE +=
+      (helikopter04day4OptUnFeed_P.TransferFcn5_A)*
+      helikopter04day4OptUnFeed_X.TransferFcn5_CSTATE;
+  }
+
+  /* Derivatives for TransferFcn: '<S2>/Transfer Fcn4' */
+  {
+    ((StateDerivatives_helikopter04da *)
+      helikopter04day4OptUnFeed_M->ModelData.derivs)->TransferFcn4_CSTATE =
+      helikopter04day4OptUnFeed_B.KalibrerPitch;
+    ((StateDerivatives_helikopter04da *)
+      helikopter04day4OptUnFeed_M->ModelData.derivs)->TransferFcn4_CSTATE +=
+      (helikopter04day4OptUnFeed_P.TransferFcn4_A)*
+      helikopter04day4OptUnFeed_X.TransferFcn4_CSTATE;
+  }
+
   /* Derivatives for Integrator: '<S1>/Integrator' */
   {
     boolean_T lsat;
@@ -485,39 +526,6 @@ void helikopter04day4OptUnFeed_derivatives(void)
       ((StateDerivatives_helikopter04da *)
         helikopter04day4OptUnFeed_M->ModelData.derivs)->Integrator_CSTATE = 0.0;
     }
-  }
-
-  /* Derivatives for TransferFcn: '<S2>/Vandring Deriv' */
-  {
-    ((StateDerivatives_helikopter04da *)
-      helikopter04day4OptUnFeed_M->ModelData.derivs)->VandringDeriv_CSTATE =
-      helikopter04day4OptUnFeed_B.KalibrerVandring;
-    ((StateDerivatives_helikopter04da *)
-      helikopter04day4OptUnFeed_M->ModelData.derivs)->VandringDeriv_CSTATE +=
-      (helikopter04day4OptUnFeed_P.VandringDeriv_A)*
-      helikopter04day4OptUnFeed_X.VandringDeriv_CSTATE;
-  }
-
-  /* Derivatives for TransferFcn: '<S2>/Transfer Fcn4' */
-  {
-    ((StateDerivatives_helikopter04da *)
-      helikopter04day4OptUnFeed_M->ModelData.derivs)->TransferFcn4_CSTATE =
-      helikopter04day4OptUnFeed_B.KalibrerPitch;
-    ((StateDerivatives_helikopter04da *)
-      helikopter04day4OptUnFeed_M->ModelData.derivs)->TransferFcn4_CSTATE +=
-      (helikopter04day4OptUnFeed_P.TransferFcn4_A)*
-      helikopter04day4OptUnFeed_X.TransferFcn4_CSTATE;
-  }
-
-  /* Derivatives for TransferFcn: '<S2>/Transfer Fcn5' */
-  {
-    ((StateDerivatives_helikopter04da *)
-      helikopter04day4OptUnFeed_M->ModelData.derivs)->TransferFcn5_CSTATE =
-      helikopter04day4OptUnFeed_B.KalibrerElev;
-    ((StateDerivatives_helikopter04da *)
-      helikopter04day4OptUnFeed_M->ModelData.derivs)->TransferFcn5_CSTATE +=
-      (helikopter04day4OptUnFeed_P.TransferFcn5_A)*
-      helikopter04day4OptUnFeed_X.TransferFcn5_CSTATE;
   }
 }
 
@@ -603,10 +611,10 @@ void helikopter04day4OptUnFeed_initialize(boolean_T firstTime)
   helikopter04day4OptUnFeed_M->Timing.stepSize1 = 0.001;
 
   /* external mode info */
-  helikopter04day4OptUnFeed_M->Sizes.checksums[0] = (3347843226U);
-  helikopter04day4OptUnFeed_M->Sizes.checksums[1] = (2884040454U);
-  helikopter04day4OptUnFeed_M->Sizes.checksums[2] = (3850228724U);
-  helikopter04day4OptUnFeed_M->Sizes.checksums[3] = (2508432773U);
+  helikopter04day4OptUnFeed_M->Sizes.checksums[0] = (1430648864U);
+  helikopter04day4OptUnFeed_M->Sizes.checksums[1] = (2764951855U);
+  helikopter04day4OptUnFeed_M->Sizes.checksums[2] = (1928705609U);
+  helikopter04day4OptUnFeed_M->Sizes.checksums[3] = (2259670327U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
@@ -639,8 +647,11 @@ void helikopter04day4OptUnFeed_initialize(boolean_T firstTime)
     helikopter04day4OptUnFeed_B.Add = 0.0;
     helikopter04day4OptUnFeed_B.VandringLavpass = 0.0;
     helikopter04day4OptUnFeed_B.Add1 = 0.0;
-    helikopter04day4OptUnFeed_B.KalibrerPitch = 0.0;
     helikopter04day4OptUnFeed_B.KalibrerVandring = 0.0;
+    helikopter04day4OptUnFeed_B.VandringDeriv = 0.0;
+    helikopter04day4OptUnFeed_B.TransferFcn5 = 0.0;
+    helikopter04day4OptUnFeed_B.KalibrerPitch = 0.0;
+    helikopter04day4OptUnFeed_B.TransferFcn4 = 0.0;
     helikopter04day4OptUnFeed_B.K_ei = 0.0;
     helikopter04day4OptUnFeed_B.SatB = 0.0;
     helikopter04day4OptUnFeed_B.Sat = 0.0;
@@ -796,8 +807,8 @@ void MdlInitializeSizes(void)
   helikopter04day4OptUnFeed_M->Sizes.numU = (0);/* Number of model inputs */
   helikopter04day4OptUnFeed_M->Sizes.sysDirFeedThru = (0);/* The model is not direct feedthrough */
   helikopter04day4OptUnFeed_M->Sizes.numSampTimes = (2);/* Number of sample times */
-  helikopter04day4OptUnFeed_M->Sizes.numBlocks = (48);/* Number of blocks */
-  helikopter04day4OptUnFeed_M->Sizes.numBlockIO = (10);/* Number of block outputs */
+  helikopter04day4OptUnFeed_M->Sizes.numBlocks = (52);/* Number of blocks */
+  helikopter04day4OptUnFeed_M->Sizes.numBlockIO = (13);/* Number of block outputs */
   helikopter04day4OptUnFeed_M->Sizes.numBlockPrms = (150);/* Sum of parameter "widths" */
 }
 
@@ -810,18 +821,18 @@ void MdlInitialize(void)
   /* InitializeConditions for TransferFcn: '<S2>/Vandring Lavpass' */
   helikopter04day4OptUnFeed_X.VandringLavpass_CSTATE = 0.0;
 
-  /* InitializeConditions for Integrator: '<S1>/Integrator' */
-  helikopter04day4OptUnFeed_X.Integrator_CSTATE =
-    helikopter04day4OptUnFeed_P.Integrator_IC;
-
   /* InitializeConditions for TransferFcn: '<S2>/Vandring Deriv' */
   helikopter04day4OptUnFeed_X.VandringDeriv_CSTATE = 0.0;
+
+  /* InitializeConditions for TransferFcn: '<S2>/Transfer Fcn5' */
+  helikopter04day4OptUnFeed_X.TransferFcn5_CSTATE = 0.0;
 
   /* InitializeConditions for TransferFcn: '<S2>/Transfer Fcn4' */
   helikopter04day4OptUnFeed_X.TransferFcn4_CSTATE = 0.0;
 
-  /* InitializeConditions for TransferFcn: '<S2>/Transfer Fcn5' */
-  helikopter04day4OptUnFeed_X.TransferFcn5_CSTATE = 0.0;
+  /* InitializeConditions for Integrator: '<S1>/Integrator' */
+  helikopter04day4OptUnFeed_X.Integrator_CSTATE =
+    helikopter04day4OptUnFeed_P.Integrator_IC;
 }
 
 void MdlStart(void)
@@ -975,22 +986,24 @@ void MdlStart(void)
 
     static real_T pDataValues[] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-      -2.4644176231959486E-001, -1.0851813000903712E-001,
-      3.6569566163379801E-003, 9.1235835653193612E-002, 1.5624702471437471E-001,
-      2.0124236101164916E-001, 2.2899731687850611E-001, 2.4226714339566971E-001,
-      2.4359880083660199E-001, 2.3519664173760585E-001, 2.1883860064854563E-001,
-      1.9583882696488317E-001, 1.6705248998256558E-001, 1.3291834872284236E-001,
-      9.3534812852986440E-002, 4.8765384633923471E-002, -1.1464593678555172E-002,
-      4.1375354735926229E-001, 5.4601250123760248E-001, 5.4601250123760248E-001,
-      2.2413725639303689E-002, 2.2413725639303689E-002, 2.2413725639303696E-002,
-      2.2413725639303692E-002, 2.2413725639303689E-002, 2.2413725639303689E-002,
-      2.2413725639303692E-002, 2.2413725639303689E-002, 2.2413725639303692E-002,
-      2.2413725639303689E-002, 2.2413725639303689E-002, 2.2413725639303692E-002,
-      2.2413725639303692E-002, 2.2413725639303692E-002, 2.2413725639303692E-002,
-      2.2413725639303689E-002, 2.2413725639303689E-002, 2.2413725639303692E-002,
-      2.2413725639303689E-002, 1.7201940290535265E-003, 0.0, 0.0, 0.0, 0.0, 0.0,
-      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
-    } ;
+      -1.6918532500069510E-002, -1.8821133353427732E-002,
+      -2.0578285017633299E-002, -2.2002516294629931E-002,
+      -2.2852676674120539E-002, -2.2838080101035847E-002,
+      -2.1626267089636241E-002, -1.8855120620545132E-002,
+      -2.0897078438149273E-002, -4.8525512109671102E-003,
+      1.5132834595359374E-002, -1.5544115880060119E-002,
+      -2.2806938887394566E-002, -2.3882196353868144E-002,
+      -2.4785970510309011E-002, -2.3551778745264526E-002,
+      -1.1464594182880646E-002, 4.1375354774941620E-001, 5.4601250123737877E-001,
+      5.4601250123737877E-001, 2.2413725639079920E-002, 2.2413725639079923E-002,
+      2.2413725639079920E-002, 2.2413725639079927E-002, 2.2413725639079927E-002,
+      2.2413725639079923E-002, 2.2413725639079927E-002, 2.2413725639079923E-002,
+      2.2413725639079920E-002, 2.2413725639079923E-002, 2.2413725639079923E-002,
+      2.2413725639079927E-002, 2.2413725639079923E-002, 2.2413725639079923E-002,
+      2.2413725639079923E-002, 2.2413725639079923E-002, 2.2413725639079923E-002,
+      2.2413725639079927E-002, 2.2413725639079927E-002, 6.7289654736572592E-003,
+      0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      0.0, 0.0, 0.0, 0.0, 0.0 } ;
 
     helikopter04day4OptUnFeed_DWork.FromWorkspace2_PWORK.TimePtr = (void *)
       pTimeValues;
@@ -1012,21 +1025,21 @@ void MdlStart(void)
 
     static real_T pDataValues[] = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-      -2.2300825042311581E-002, 2.6382266981388530E-001, 1.8071142101511773E-002,
-      5.4601250123760248E-001, 5.4601250123760248E-001, 5.4601250123760248E-001,
-      5.4601250123760248E-001, 5.4601250123760248E-001, 5.4601250123760248E-001,
-      5.4601250123760248E-001, 5.4601250123760248E-001, 5.4601250123760248E-001,
-      5.4601250123760248E-001, 5.4601250123760248E-001, 5.4601250123760248E-001,
-      5.4601250123760248E-001, 5.4601250123760248E-001, 5.4601250123760248E-001,
-      3.1078793426367846E-001, 5.0406701528041320E-001, 2.2413725639303692E-002,
-      2.2413725639303689E-002, 2.2413725639303689E-002, -2.2413725639303689E-002,
-      -2.2413725639303692E-002, -2.2413725639303692E-002,
-      2.2413725639303692E-002, 2.2413725639303692E-002, -2.2413725639303689E-002,
-      -2.2413725639303696E-002, -2.2413725639303692E-002,
-      2.2413725639303692E-002, 2.2413725639303696E-002, -2.2413725639303692E-002,
-      -2.2413725639303696E-002, 2.2413725639303696E-002, 2.2413725639303696E-002,
-      2.2413725639303696E-002, -2.2413725639303696E-002,
-      -2.2413666459326045E-002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+      -2.2300825049472488E-002, 2.6382266981915470E-001, 1.8071142087453137E-002,
+      5.4601250123737877E-001, 5.4601250123737877E-001, 5.4601250123737866E-001,
+      5.4601250123737877E-001, 5.4601250123737877E-001, 5.4601250123737877E-001,
+      5.4601250123737877E-001, 5.4601250123737877E-001, 5.4601250123737877E-001,
+      5.4601250123737877E-001, 5.4601250123737877E-001, 5.4601250123737877E-001,
+      5.4601250123737877E-001, 5.4601250123737877E-001, 5.4601250123737877E-001,
+      3.1078793426343559E-001, 5.0406701528002473E-001, 2.2413725639079927E-002,
+      2.2413725639079927E-002, 2.2413725639079930E-002, -2.2413725639079923E-002,
+      -2.2413725639079920E-002, -2.2413725639079920E-002,
+      2.2413725639079923E-002, 2.2413725639079927E-002, -2.2413725639079920E-002,
+      -2.2413725639079927E-002, -2.2413725639079923E-002,
+      2.2413725639079927E-002, 2.2413725639079923E-002, -2.2413725639079923E-002,
+      -2.2413725639079923E-002, 2.2413725639079923E-002, 2.2413725639079923E-002,
+      2.2413725639079923E-002, -2.2413725639079923E-002,
+      -2.2413666459160805E-002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
       0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } ;
 
     helikopter04day4OptUnFeed_DWork.FromWorkspace_PWORK.TimePtr = (void *)

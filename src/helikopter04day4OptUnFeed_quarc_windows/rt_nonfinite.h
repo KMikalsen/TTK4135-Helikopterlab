@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopter04day4OptUnFeed.mdl".
  *
- * Model version              : 1.81
+ * Model version              : 1.84
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Apr 09 12:38:45 2015
+ * C source code generated on : Thu Apr 16 12:41:32 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping

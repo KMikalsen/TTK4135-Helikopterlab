@@ -3,9 +3,9 @@
  *
  * Real-Time Workshop code generation for Simulink model "helikopter04day4OptMedFeed.mdl".
  *
- * Model version              : 1.85
+ * Model version              : 1.90
  * Real-Time Workshop version : 7.5  (R2010a)  25-Jan-2010
- * C source code generated on : Thu Apr 09 13:04:18 2015
+ * C source code generated on : Thu Apr 16 12:35:18 2015
  *
  * Target selection: quarc_windows.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -781,12 +781,17 @@
 
 /* Block signals (auto storage) */
 typedef struct {
-  real_T KalibrerElev;                 /* '<S2>/Kalibrer-Elev' */
-  real_T Add;                          /* '<Root>/Add' */
   real_T VandringLavpass;              /* '<S2>/Vandring Lavpass' */
   real_T Add1;                         /* '<Root>/Add1' */
-  real_T KalibrerPitch;                /* '<S2>/Kalibrer-Pitch' */
   real_T KalibrerVandring;             /* '<S2>/Kalibrer -Vandring' */
+  real_T VandringDeriv;                /* '<S2>/Vandring Deriv' */
+  real_T KalibrerPitch;                /* '<S2>/Kalibrer-Pitch' */
+  real_T TransferFcn4;                 /* '<S2>/Transfer Fcn4' */
+  real_T KalibrerElev;                 /* '<S2>/Kalibrer-Elev' */
+  real_T Add;                          /* '<Root>/Add' */
+  real_T TransferFcn5;                 /* '<S2>/Transfer Fcn5' */
+  real_T Sum2;                         /* '<Root>/Sum2' */
+  real_T Sum1;                         /* '<Root>/Sum1' */
   real_T K_ei;                         /* '<S1>/K_ei' */
   real_T SatB;                         /* '<S2>/Sat B' */
   real_T Sat;                          /* '<S2>/Sat' */
@@ -803,26 +808,6 @@ typedef struct {
   real_T HILWriteAnalog_Buffer[2];     /* '<S2>/HIL Write Analog' */
   void *HILReadEncoder_PWORK;          /* '<S2>/HIL Read Encoder' */
   struct {
-    void *LoggedData;
-  } ToWorkspace_PWORK;                 /* '<Root>/To Workspace' */
-
-  struct {
-    void *LoggedData;
-  } ToWorkspace1_PWORK;                /* '<Root>/To Workspace1' */
-
-  struct {
-    void *LoggedData;
-  } elevasion_output_PWORK;            /* '<Root>/elevasion_output' */
-
-  struct {
-    void *LoggedData;
-  } pitch_output_PWORK;                /* '<Root>/pitch_output' */
-
-  struct {
-    void *LoggedData;
-  } travel_PWORK;                      /* '<Root>/travel' */
-
-  struct {
     void *TimePtr;
     void *DataPtr;
     void *RSimInfoPtr;
@@ -835,10 +820,54 @@ typedef struct {
   } FromWorkspace2_PWORK;              /* '<Root>/From Workspace2' */
 
   struct {
+    void *LoggedData;
+  } E_ref_PWORK;                       /* '<Root>/E_ref' */
+
+  struct {
     void *TimePtr;
     void *DataPtr;
     void *RSimInfoPtr;
   } FromWorkspace_PWORK;               /* '<Root>/From Workspace' */
+
+  struct {
+    void *LoggedData;
+  } P_ref_PWORK;                       /* '<Root>/P_ref' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace_PWORK;                 /* '<Root>/To Workspace' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace1_PWORK;                /* '<Root>/To Workspace1' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace2_PWORK;                /* '<Root>/To Workspace2' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace3_PWORK;                /* '<Root>/To Workspace3' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace4_PWORK;                /* '<Root>/To Workspace4' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace5_PWORK;                /* '<Root>/To Workspace5' */
+
+  struct {
+    void *LoggedData;
+  } elevasion_output_PWORK;            /* '<Root>/elevasion_output' */
+
+  struct {
+    void *LoggedData;
+  } pitch_output_PWORK;                /* '<Root>/pitch_output' */
+
+  struct {
+    void *LoggedData;
+  } travel_PWORK;                      /* '<Root>/travel' */
 
   struct {
     void *LoggedData;
@@ -880,28 +909,28 @@ typedef struct {
 /* Continuous states (auto storage) */
 typedef struct {
   real_T VandringLavpass_CSTATE;       /* '<S2>/Vandring Lavpass' */
-  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
   real_T VandringDeriv_CSTATE;         /* '<S2>/Vandring Deriv' */
   real_T TransferFcn4_CSTATE;          /* '<S2>/Transfer Fcn4' */
   real_T TransferFcn5_CSTATE;          /* '<S2>/Transfer Fcn5' */
+  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
 } ContinuousStates_helikopter04da;
 
 /* State derivatives (auto storage) */
 typedef struct {
   real_T VandringLavpass_CSTATE;       /* '<S2>/Vandring Lavpass' */
-  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
   real_T VandringDeriv_CSTATE;         /* '<S2>/Vandring Deriv' */
   real_T TransferFcn4_CSTATE;          /* '<S2>/Transfer Fcn4' */
   real_T TransferFcn5_CSTATE;          /* '<S2>/Transfer Fcn5' */
+  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
 } StateDerivatives_helikopter04da;
 
 /* State disabled  */
 typedef struct {
   boolean_T VandringLavpass_CSTATE;    /* '<S2>/Vandring Lavpass' */
-  boolean_T Integrator_CSTATE;         /* '<S1>/Integrator' */
   boolean_T VandringDeriv_CSTATE;      /* '<S2>/Vandring Deriv' */
   boolean_T TransferFcn4_CSTATE;       /* '<S2>/Transfer Fcn4' */
   boolean_T TransferFcn5_CSTATE;       /* '<S2>/Transfer Fcn5' */
+  boolean_T Integrator_CSTATE;         /* '<S1>/Integrator' */
 } StateDisabled_helikopter04day4O;
 
 #ifndef ODE1_INTG
@@ -956,12 +985,6 @@ struct Parameters_helikopter04day4OptM_ {
   real_T HILInitialize_AOFinal;        /* Expression: final_analog_outputs
                                         * Referenced by: '<Root>/HIL Initialize'
                                         */
-  real_T KalibrerElev_Gain;            /* Expression: KalibElevasjon
-                                        * Referenced by: '<S2>/Kalibrer-Elev'
-                                        */
-  real_T Constant_Value;               /* Expression: -30
-                                        * Referenced by: '<Root>/Constant'
-                                        */
   real_T Constant1_Value;              /* Expression: 360
                                         * Referenced by: '<Root>/Constant1'
                                         */
@@ -970,18 +993,6 @@ struct Parameters_helikopter04day4OptM_ {
                                         */
   real_T VandringLavpass_C;            /* Computed Parameter: VandringLavpass_C
                                         * Referenced by: '<S2>/Vandring Lavpass'
-                                        */
-  real_T KalibrerPitch_Gain;           /* Expression: KalibPitch
-                                        * Referenced by: '<S2>/Kalibrer-Pitch'
-                                        */
-  real_T Integrator_IC;                /* Expression: 0
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
-  real_T Integrator_UpperSat;          /* Expression: inf
-                                        * Referenced by: '<S1>/Integrator'
-                                        */
-  real_T Integrator_LowerSat;          /* Expression: -inf
-                                        * Referenced by: '<S1>/Integrator'
                                         */
   real_T KalibrerVandring_Gain;        /* Expression: KalibVandring
                                         * Referenced by: '<S2>/Kalibrer -Vandring'
@@ -995,6 +1006,9 @@ struct Parameters_helikopter04day4OptM_ {
   real_T VandringDeriv_D;              /* Computed Parameter: VandringDeriv_D
                                         * Referenced by: '<S2>/Vandring Deriv'
                                         */
+  real_T KalibrerPitch_Gain;           /* Expression: KalibPitch
+                                        * Referenced by: '<S2>/Kalibrer-Pitch'
+                                        */
   real_T TransferFcn4_A;               /* Computed Parameter: TransferFcn4_A
                                         * Referenced by: '<S2>/Transfer Fcn4'
                                         */
@@ -1003,6 +1017,12 @@ struct Parameters_helikopter04day4OptM_ {
                                         */
   real_T TransferFcn4_D;               /* Computed Parameter: TransferFcn4_D
                                         * Referenced by: '<S2>/Transfer Fcn4'
+                                        */
+  real_T KalibrerElev_Gain;            /* Expression: KalibElevasjon
+                                        * Referenced by: '<S2>/Kalibrer-Elev'
+                                        */
+  real_T Constant_Value;               /* Expression: -30
+                                        * Referenced by: '<Root>/Constant'
                                         */
   real_T TransferFcn5_A;               /* Computed Parameter: TransferFcn5_A
                                         * Referenced by: '<S2>/Transfer Fcn5'
@@ -1016,11 +1036,20 @@ struct Parameters_helikopter04day4OptM_ {
   real_T Gain_Gain[36];                /* Expression: eye(6)*pi/180
                                         * Referenced by: '<Root>/Gain'
                                         */
-  real_T K_ed_Gain;                    /* Expression: -K_ed
-                                        * Referenced by: '<S1>/K_ed'
-                                        */
   real_T Gain1_Gain[12];               /* Expression: K
                                         * Referenced by: '<Root>/Gain1'
+                                        */
+  real_T Integrator_IC;                /* Expression: 0
+                                        * Referenced by: '<S1>/Integrator'
+                                        */
+  real_T Integrator_UpperSat;          /* Expression: inf
+                                        * Referenced by: '<S1>/Integrator'
+                                        */
+  real_T Integrator_LowerSat;          /* Expression: -inf
+                                        * Referenced by: '<S1>/Integrator'
+                                        */
+  real_T K_ed_Gain;                    /* Expression: -K_ed
+                                        * Referenced by: '<S1>/K_ed'
                                         */
   real_T K_ei_Gain;                    /* Expression: K_ei
                                         * Referenced by: '<S1>/K_ei'
