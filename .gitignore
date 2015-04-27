@@ -7,7 +7,6 @@
 *.out
 *.toc
 *.synctex.gz
-*.pdf
 
 ## Intermediate documents:
 *.dvi
