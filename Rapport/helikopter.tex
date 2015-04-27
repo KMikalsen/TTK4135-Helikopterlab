@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt,draft]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -7,8 +7,13 @@
 \usepackage{epigraph}						% Funny quotes
 \usepackage{bm}								% Bold face for vectors/matrices
 \usepackage[hidelinks]{hyperref}			% Invisible, clickable links in pdf
-\usepackage{listings}
-\usepackage{mcode}
+\usepackage{listings}						% Display source code nicely
+\usepackage{mcode}							% Ditto MATLAB code
+\usepackage{algpseudocode}					% Nice Al Gore Rhythms
+\usepackage{graphicx}						% Including graphics
+\usepackage{epstopdf}						% Self-explanatory
+\usepackage{float} 							% Better float placing (H option)
+\usepackage{siunitx}						% SI units
 \bibliographystyle{ieeetr}					% Citations in IEEE style
 \lstset{frame=topbottom}
 
@@ -17,15 +22,60 @@
 \newcommand{\V}[1]{\mathbf{#1}} 			% Use for vectors
 \newcommand{\transpose}{^{\text{T}}} 		% Make a guess, bitch
 \newcommand{\sub}[1]{_{\textnormal{#1}}} 	% For upright subscripts
-    
+
+\lstset{
+    frame=single,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{green}\hookrightarrow\space}},
+    morekeywords={model, import, constant, parameter, equation, end},
+    keywordstyle=\color{blue},
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt
+}
+
 \begin{document}
+
+\begin{titlepage}
+\begin{center}
+
+\textsc{\LARGE TTK4135}\\[1.5cm]
+\textsc{\LARGE Report} \linebreak
+{ \huge \bfseries \textcolor[rgb]{0,0,1}{Helicopter Lab}\\[0.5cm] }
+\today \vspace{1cm} \linebreak 
+\emph{\textbf{Student numbers:}} \linebreak 
+742434 \linebreak
+XXXXXX \linebreak
+XXXXXX \linebreak
+XXXXXX \linebreak
+XXXXXX \linebreak\linebreak \textbf{Group 9}  \vspace{3cm}\linebreak \linebreak
+
+\textsc{Faculty of Information Technology, Mathematics and Electrical Engineering}\linebreak
+\textsc{Department of Engineering Cybernetics} 
+\vfill
+
+
+\includegraphics[width=200pt, keepaspectratio=true]{logo_ntnu_eng.eps}
+
+\end{center}
+\end{titlepage}
+\begin{abstract}
+
+This is a report for the mandatory lab exercise in the course TTK4135 Optimization and Control held at NTNU the spring 2015. The purpose of this exercise is to get practical experience in formulating dynamic optimization problems, discretizise them and solve them using a computer, as well as using these results to impliment optimal controllers with and without feedback. The optimization problems that got solved were quadratic minimization problems, and the feedback was introduced using LQ controllers.
+
+\end{abstract}
 
 \tableofcontents
 
+\include{introduction}
+\include{10.1}
 \include{10.2}
 \include{10.3}
 \include{10.4}
-\include{pastebin}
+\include{discussionAndConclusion}
+\include{appendix}
+%\include{pastebin}
 
 \bibliography{ref-helikopter}
 

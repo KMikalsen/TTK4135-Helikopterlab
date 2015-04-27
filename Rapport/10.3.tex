@@ -1,14 +1,98 @@
 \epigraph{\textit{'I've got 99 problems, but a pitch ain't one.'}}{Ice-T (1993)}
 
-\section{Optimal control of pitch/travel with LQ control}
+\section{Optimal control of pitch/travel with LQ control (10.3)}
 
-\section{MPC discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{LQ controller (10.3.1)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{how would you realize MPC}
-look at exercise 
+We introduce feedback to our system using the following manipulated variable:
 
-\subsection{discuss advantages and disadvantages with MPC compared to the one you have implemented}
-MPC: a lot of computations, heavy for the computer, slow, but very accurate
-LQR: not that much computations, generally fast, not that accurate
+\begin{equation}
+	\V{u}_k = \V{u}_k^* - \M{K} \transpose (\V{x}_k - \V{x}_k^*)
+\end{equation}
 
-\subsection{think about how the structure in fig 8 would look if you used MPC}
+where $u_k^*$ and $x_k^*$ are the optimal input sequence and optimal trajectory calculated in the previous task. $\M{K}$ is the \emph{gain matrix}, and can be calculated in many ways. We are going to determine it with an LQ (linear quadratic) controller that minimizes the function
+
+\begin{equation} \label{eq:LQcost}
+	J = \sum\limits_{i=0}^{\infty} \Delta \V{x}_{i+1} \transpose \M{Q} \Delta \V{x}_{i+1} + \Delta \V{u}_{i} \transpose \M{R} \Delta \V{u}_{i}, \quad \M{Q} \geq 0, \, \M{R} > 0
+\end{equation}
+for the linear model
+
+\begin{equation}
+	 \Delta \V{x}_{i+1} = \M{A} \Delta \V{x}_{i} + \M{B} \Delta \V{u}_{i}
+\end{equation}
+where $\Delta \V{x} = \V{x} - \V{x}^*$ and $\Delta \V{u} = \V{u} - \V{u}^*$ are the deviations from the optimal trajectory. \eqref{eq:LQcost} can be solved in MATLAB using the function \texttt{dlqr}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth, trim=2cm 5cm 2cm 2cm]{simulinkmodels/heldag3}
+	\caption{Simulink model of the system}
+	\label{fig:heldag3}
+\end{figure}
+
+We can tune the behaviour of the helicopter by changing the values of $\M{Q}$ and $R$, and by trial and error we obtain the following values:
+
+\begin{equation}
+	\M{Q} = 
+    \begin{bmatrix}
+    	25 & 0 & 0 & 0 \\
+        0 & 0.5 & 0 & 0 \\
+        0 & 0 & 100 & 0 \\
+        0 & 0 & 0 & 0.5
+    \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+	R = 1
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Behaviour with feedback (10.3.2)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The first thing we notice is that the helicopter now actually stops at the desired reference point. What more? Plots?
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{day3}
+	\caption{Actual values day 3}
+	\label{fig:day3}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{MPC discussion (10.3.3)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Realization of MPC (10.3.3)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+An MPC can be realized with the following algorithm for linear MPC with state feedback
+
+\begin{algorithmic}
+\For{t = 0,1,2,...}
+\State Get the current state $x_t$
+\State Solve the convex QP problem on the prediction horizon from $t$ to $t+N$ with $x_t$ as the initial condition
+\State Apply the first control move $u_t$ from the solution above
+\EndFor
+\end{algorithmic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Advantages and disadvantages with using MPC (10.3.3)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+There are both advantages and disadvantages with using an MPC controller compared to the LQR controller.   
+MPC requires a lot of computations, and can therefore require a lot of computer resources. All these computations also take quite a bit of time, and is slower than an LQR controller. 
+However, all of these computations mean that you get a very accurate controller. 
+With the LQR you won't get that many computations, so it will be faster and require less computational power, but it will also be less accurate.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Figure 8 with MPC (10.3.3)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=10cm]{figurate_with_MPC}
+	\caption{Figure 8 with MPC}
+	\label{fig:figurate}
+\end{figure}
+
+The MPC, pitch controller and elevation controller gets the actual position $x$ from the helicopter and calculates the input $u$, which the pitch and elevation controllers then use to find the voltages $V_d$ and $V_s$ to control the motors
