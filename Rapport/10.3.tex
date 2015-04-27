@@ -11,7 +11,6 @@ We introduce feedback to our system using the following manipulated variable:
 \begin{equation}
 	\V{u}_k = \V{u}_k^* - \M{K} \transpose (\V{x}_k - \V{x}_k^*)
 \end{equation}
-
 where $u_k^*$ and $x_k^*$ are the optimal input sequence and optimal trajectory calculated in the previous task. $\M{K}$ is the gain matrix, and can be calculated in numerous ways. We are going to determine it with an LQ (linear quadratic) controller that minimises the function
 
 \begin{equation} \label{eq:LQcost}
@@ -31,7 +30,7 @@ where $\Delta \V{x} = \V{x} - \V{x}^*$ and $\Delta \V{u} = \V{u} - \V{u}^*$ are 
 	\label{fig:heldag3}
 \end{figure}
 
-The behaviour of the helicopter is tuned by altering $\M{Q}$ and $R$, and by trial and error we obtained the following values: (TODO: HOW GOOD WAS THIS?)
+The behaviour of the helicopter is tuned by altering $\M{Q}$ and $R$, and by trial and error we obtained values that yielded descent behaviour of the helicopter:
 
 \begin{equation}
 	\M{Q} = 
@@ -56,19 +55,19 @@ The first thing we notice is that the helicopter now does come to a halt at the 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{day3}
-	\caption{Actual values day 3}
+	\caption{Running the helicopter with feedback}
 	\label{fig:day3}
 \end{figure}
 
 
-As shown the shape of both the travel and pitch match the calculated values found in \ref{fig:day2q1} well. The feedback distorts the pitch from the calculated optimal as it works in parallel with the optimal input for the helikopter.
+As shown the shape of both the travel and pitch match the calculated values found in \ref{fig:estimatedDay202} well. The feedback distorts the pitch from the calculated optimal as it works in parallel with the optimal input for the helikopter.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{MPC discussion (10.3.3)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Realization of MPC (10.3.3)}
+\subsubsection{Realization of MPC}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 MPC can be realized with the following algorithm for linear MPC with state feedback
 
@@ -81,13 +80,13 @@ MPC can be realized with the following algorithm for linear MPC with state feedb
 \end{algorithmic}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Advantages and disadvantages of using MPC (10.3.3)}
+\subsubsection{Advantages and disadvantages of using MPC)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 There are both advantages and disadvantages with using an MPC controller compared to LQR.   
 MPC requires a lot of computation, and may therefore require more expensive hardware or longer computation time. However, this can yield a very accurate controller. LQR is less computationally intensive, but also less accurate.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Figure 8 with MPC (10.3.3)}
+\subsubsection{Figure 8 with MPC}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[H]
 	\centering

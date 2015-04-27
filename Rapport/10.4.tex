@@ -139,8 +139,15 @@ Without feedback the pitch goes to 0 when $\lambda = \lambda_f$, but does not co
 
 \begin{figure}[H]
 	\centering
+	\includegraphics[width=\textwidth]{day4_calc_outputs}
+	\caption{Optimal path}
+	\label{fig:estimatedDay201}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 	\includegraphics[width=\textwidth]{day4_nofeed}
-	\caption{Actual values day 4 without feedback}
+	\caption{Running the helicopter without feedback}
 	\label{fig:day4nofeed}
 \end{figure}
 
@@ -148,16 +155,16 @@ Without feedback the pitch goes to 0 when $\lambda = \lambda_f$, but does not co
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{day4_yesfeed}
-	\caption{Actual values day 4 with feedback}
+	\caption{Running the helicopter with feedback}
 	\label{fig:day4yesfeed}
 \end{figure}
 
 As we can see in the sensor data from the model without feedback, the helicopter does not stop at $\lambda = \lambda_f$, but keeps moving. In the model with feedback, however, it does stop at $\lambda = \lambda_f$, but the change in pitch to keep it still in the reference point also makes the helicopter elevate a bit, as can be seen in the plot at roughly 16 seconds. It also overshoots slightly, but converges at the setpoint.
 
-In the calculated outputs you can see that it also expects some change in the pitch when trying to stop at the reference point, but it is much more subtle than the real behaviour, especially with feedback. This would correspond better if the LQR was tuned better. In the measured values of the model without feedback, this is more similar to the calculated pitch, but the travel is a bit off, as the helicopter keeps gliding after it reaches the reference point. This is improved in the model with feedback, although it does not stop as quickly and smoothly as the calculated output would suggest.
+In the calculated outputs you can see that it also expects some change in the pitch when trying to stop at the reference point, but it is much more subtle than the real behaviour, especially with feedback. This would correspond better if the LQR was tuned better (how the LQR was tuned can be seen in the code in the appendix). In the measured values of the model without feedback, this is more similar to the calculated pitch, but the travel is a bit off, as the helicopter keeps gliding after it reaches the reference point. This is improved in the model with feedback, although it does not stop as quickly and smoothly as the calculated output would suggest.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Discussion of decoupled states (10.4.5)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In real life the pitch and pitch rate of the helicopter would have an effect on both the elevation rate and the elevation itself. This will result in an offset from the calculated optimal trajectory.  
+In our model the elevation and the elevation rate are completely decoupled from the other states, which isn't really realistic. In real life the pitch and pitch rate of the helicopter would have an effect on both the elevation rate and the elevation itself. This will result in an offset from the calculated optimal trajectory.  
 By modelling the system with the elevation and travel coupled with the pitch, you will remove the offset at the cost of a more complex model.

@@ -17,7 +17,7 @@ We want to write the model \eqref{eq:model1} in continuous time state space form
 	u 		&= p_{c}
 \end{aligned}
 \end{equation}
-The equations of motion for the states are shown in \eqref{eq:state_equations} and the constants used are defined in \eqref{eq:K1K2}. (These are derived in detail in \cite{_helicopter_2015}, and will not be further explained here. The same applies for \eqref{eq:state_eqns} in section \ref{10.4.1}.)
+The equations of motion for the states are shown in \eqref{eq:state_equations} and the constants used are defined in \eqref{eq:K1K2}. (These are derived in detail in \cite{_helicopter_2015}, and will not be further explained here. The same applies for \eqref{eq:state_eqns} in section \ref{10.4.1}.) A complete table of symbols and constants lies in the appendix. 
 
 \begin{equation}\label{eq:state_equations}
 \begin{aligned}
@@ -104,7 +104,7 @@ Using \eqref{eq:forward_euler} and \eqref{eq:euler_func}, we can determine the m
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Discussion of the cost function (10.2.3)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The assignment text specifies a cost function \eqref{eq:cost_function} \cite{_helicopter_2015} that we want to minimise subject to the constraints given in \eqref{eq:cost_constraint}.
+The assignment text  \cite{_helicopter_2015} specifies a cost function \eqref{eq:cost_function} that we want to minimise subject to the constraints given in \eqref{eq:cost_constraint}.
 
 
 \begin{equation} \label {eq:cost_function}
@@ -147,23 +147,7 @@ vlb(N*mx+M*mu)  = 0;         % We want the last input to be zero
 vub(N*mx+M*mu)  = 0;         % We want the last input to be zero
 
 \end{lstlisting}
-where \texttt{genBegr2} is like this:
-
-%NB denne koden er hentet fra nettet, skriv kilde
-\vspace{1cm}
-\begin{lstlisting} %få kommentarene på en linje, ser mye bedre ut
-
-function [vlb,vub] = genBegr2(N,M,xl,xu,ul,uu);
-
-vlb_x	= repmat(xl,N,1);	% Lager begrensning for hvert tidsskritt
-vub_x	= repmat(xu,N,1);	% Lager begrensning for hvert tidsskritt
-
-vlb_u	= repmat(ul,M,1);	% Lager begrensning for hvert tidsskritt
-vub_u	= repmat(uu,M,1);	% Lager begrensning for hvert tidsskritt
-
-vlb	    = [vlb_x; vlb_u];	% Setter sammen begrensningene for xl og ul
-vub	    = [vub_x; vub_u];	% Setter sammen begrensningene for xu og uu
-\end{lstlisting}
+where \texttt{genBegr2} was given on it's learning.
 
 After that we find weight matrices for the QP problem and the matrices for the equality constrains:
 \begin{lstlisting}
@@ -184,31 +168,7 @@ Aeq = gena2(A1,B1,N,mx,mu); 	% Generate A
 beq = zeros(1, size(Aeq,1));	% Generate b
 beq(1:mx) = A1*x0; 	        	% Initial value
 \end{lstlisting}
-using \texttt{genq2} 
-
-\begin{lstlisting} %NB denne koden er hentet fra nettet, skriv kilde
-
-function Q = genq2(Q1,P1,N,M,mu)
-
-p1	= blkdiag2(P1,M);
-q1	= blkdiag2(Q1,N);
-
-Q	= blkdiag(q1,p1); 
-\end{lstlisting}
-and \texttt{gena2}
-
-\begin{lstlisting} %NB denne koden er hentet fra nettet, skriv kilde
-
-function A = gena2(A1,B1,N,mx,mu)
-
-A 	= zeros(N*mx,N*mx+N*mu);
-b1	= blkdiag2(-B1,N);
-a1	= eye(N*mx);
-for i=1:(N-1)
-  a1([(i*mx+1):((i+1)*mx)],[((i-1)*mx+1):(i*mx)])=-A1;
-end
-A	= [a1 b1];
-\end{lstlisting}
+using \texttt{genq2} and \texttt{gena2} given on it's learning.
 
 At last we solve the quadratic problem using the MATLAB command \texttt{quadprog}:
 
@@ -242,12 +202,12 @@ where $\M{Z} = \begin{bmatrix} \V{x}_1 & \V{x}_2 & ... & \V{x}_N & u_1 & u_2 & .
 
 
 
-From the figures we see that a large $q$ will downpress the pitch, resulting in slower travel. This makes sense. \eqref{eq:cost_function} tells us that $q$ is the weight of the pitch rate. We want to minimise the entire expression, meaning if we increase $p_c$, $p_c$ will decrease, to minimize the function.
+From the figures we see that a large $q$ will downpress the pitch, resulting in slower travel. This makes sense. \eqref{eq:cost_function} tells us that $q$ is the weight of the pitch rate. We want to minimise the entire expression, meaning if we increase the weight of $p_c$, $p_c$ will decrease, to minimize the function.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Discussion of unwanted effects (10.2.3)\label{unwanted}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-When $\lambda = \lambda_f$, the first part of the cost function will be 0. In this case, the QP algorithm will only attempt to minimise pitch. It achieves this by setting the pitch equal to zero, which most likely will result in overshoot and oscillations.
+When $\lambda = \lambda_f$, the first part of the cost function will be 0. In this case, the QP algorithm will only attempt to minimise pitch. It achieves this by setting the pitch equal to zero, which may result in overshoot and oscillations.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -268,7 +228,7 @@ Note, however, that we discovered a fault related to the travel sensor causing i
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{day2}
-	\caption{Actual values day 2}
+	\caption{Running the helicopter with optimal input}
 	\label{fig:day2}
 \end{figure}
 

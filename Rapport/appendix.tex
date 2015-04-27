@@ -50,7 +50,7 @@ This code is modified from the code handed out on itslearning.
 
 \begin{lstlisting}
 init04;
-delta_t	  = 0.25;	                    % sampling time
+delta_t	  = 0.25;             % sampling time
 sek_forst = 5;
 
 q = 0.1;
@@ -65,56 +65,56 @@ B1 = [0; 0; 0; K_1*K_pp*delta_t];
 
 % Number of states and inputs
 
-mx = size(A1,2);                        % Number of states (number of columns in A)
-mu = size(B1,2);                        % Number of inputs(number of columns in B)
+mx = size(A1,2);       		  % Number of states
+mu = size(B1,2);              % Number of inputs
 
 % Initial values
 
-x1_0 = pi;                              % Lambda
-x2_0 = 0;                               % r
-x3_0 = 0;                               % p
-x4_0 = 0;                               % p_dot
-x0   = [x1_0 x2_0 x3_0 x4_0]';          % Initial values
+x1_0 = pi;                    % Lambda
+x2_0 = 0;                     % r
+x3_0 = 0;                     % p
+x4_0 = 0;                     % p_dot
+x0   = [x1_0 x2_0 x3_0 x4_0]';% Initial values
 
 % Time horizon and initialization
 
-N  = 100;                                % Time horizon for states
-M  = N;                                 % Time horizon for inputs
-z  = zeros(N*mx+M*mu,1);                % Initialize z for the whole horizon
-z0 = z;                                 % Initial value for optimization
+N  = 100;                     % Time horizon for states
+M  = N;                       % Time horizon for inputs
+z  = zeros(N*mx+M*mu,1);      % Initialize z for whole horizon
+z0 = z;                       % Initial value for optimization
 
 % Bounds
 
-ul 	    = -30*pi/180;                   % Lower bound on control -- u1
-uu 	    = 30*pi/180;                    % Upper bound on control -- u1
+ul 	    = -30*pi/180;         % Lower bound on control -- u1
+uu 	    = 30*pi/180;          % Upper bound on control -- u1
 
-xl      = -Inf*ones(mx,1);              % Lower bound on states (no bound)
-xu      = Inf*ones(mx,1);               % Upper bound on states (no bound)
-xl(3)   = ul;                           % Lower bound on state x3
-xu(3)   = uu;                           % Upper bound on state x3
+xl      = -Inf*ones(mx,1);    % Lower bound on states (no bound)
+xu      = Inf*ones(mx,1);     % Upper bound on states (no bound)
+xl(3)   = ul;                 % Lower bound on state x3
+xu(3)   = uu;                 % Upper bound on state x3
 
 % Generate constraints on measurements and inputs
 
 [vlb,vub]       = genBegr2(N,M,xl,xu,ul,uu);
-vlb(N*mx+M*mu)  = 0;                    % We want the last input to be zero
-vub(N*mx+M*mu)  = 0;                    % We want the last input to be zero
+vlb(N*mx+M*mu)  = 0;           % Last input is zero
+vub(N*mx+M*mu)  = 0;           % Last input is zero
 
 % Generate the matrix Q and the vector c (objecitve function weights in the QP problem) 
 
 Q1 = zeros(mx,mx);
-Q1(1,1) = 1;                            % Weight on state x1
-Q1(2,2) = 0;                            % Weight on state x2
-Q1(3,3) = q;                            % Weight on state x3
-Q1(4,4) = 0;                            % Weight on state x4
-P1 = q;                                 % Weight on input
-Q = 2*genq2(Q1,P1,N,M,mu);              % Generate Q
-c = zeros(N*mx+M*mu,1);                 % Generate c
+Q1(1,1) = 1;                   % Weight on state x1
+Q1(2,2) = 0;                   % Weight on state x2
+Q1(3,3) = q;                   % Weight on state x3
+Q1(4,4) = 0;                   % Weight on state x4
+P1 = q;                        % Weight on input
+Q = 2*genq2(Q1,P1,N,M,mu);     % Generate Q
+c = zeros(N*mx+M*mu,1);        % Generate c
 
 % Generate system matrixes for linear model
 
-Aeq = gena2(A1,B1,N,mx,mu);          % Generate A
-beq = zeros(1, size(Aeq,1));         % Generate b
-beq(1:mx) = A1*x0; 	        	        % Initial value
+Aeq = gena2(A1,B1,N,mx,mu);    % Generate A
+beq = zeros(1, size(Aeq,1));   % Generate b
+beq(1:mx) = A1*x0; 	           % Initial value
 
 % Solve Qp problem with linear model
 tic
@@ -126,10 +126,10 @@ t1=toc;
 
 u  = [z(N*mx+1:N*mx+M*mu);z(N*mx+M*mu)]; % Control input from solution
 
-x1 = [x0(1);z(1:mx:N*mx)];              % State x1 from solution
-x2 = [x0(2);z(2:mx:N*mx)];              % State x2 from solution
-x3 = [x0(3);z(3:mx:N*mx)];              % State x3 from solution
-x4 = [x0(4);z(4:mx:N*mx)];              % State x4 from solution
+x1 = [x0(1);z(1:mx:N*mx)];     % State x1 from solution
+x2 = [x0(2);z(2:mx:N*mx)];     % State x2 from solution
+x3 = [x0(3);z(3:mx:N*mx)];     % State x3 from solution
+x4 = [x0(4);z(4:mx:N*mx)];     % State x4 from solution
 
 Antall = 5/delta_t;
 Nuller = zeros(Antall,1);
@@ -185,7 +185,7 @@ This code is modified from the code handed out on itslearning.
 
 \begin{lstlisting}
 init04;
-delta_t	  = 0.25;	                    % sampling time
+delta_t	  = 0.25;             % sampling time
 sek_forst = 5;
 
 q = 0.1;
@@ -202,21 +202,21 @@ B = [0 0; 0 0; 0 0; K_1*K_pp*delta_t 0; 0 0; 0 delta_t*K_3*K_ep];
 
 % Number of states and inputs
 
-mx = size(A,2);                        % Number of states (number of columns in A)
-mu = size(B,2);                        % Number of inputs(number of columns in B)
+mx = size(A,2);               % Number of states 
+mu = size(B,2);               % Number of inputs
 
 % Initial values
 
-x1_0 = pi;                              % Lambda
-x2_0 = 0;                               % r
-x3_0 = 0;                               % p
-x4_0 = 0;                               % p_dot
-x5_0 = 0;                               % e
-x6_0 = 0;                               % e_dot
-x0   = [x1_0 x2_0 x3_0 x4_0 x5_0 x6_0]';          % Initial values
+x1_0 = pi;                    % Lambda
+x2_0 = 0;                     % r
+x3_0 = 0;                     % p
+x4_0 = 0;                     % p_dot
+x5_0 = 0;                     % e
+x6_0 = 0;                     % e_dot
+x0   = [x1_0 x2_0 x3_0 x4_0 x5_0 x6_0]'; % Initial
 
 u1_0 = 0;
-u2_0 = 0; % ask studass
+u2_0 = 0;
 
 q_1 = 1;
 q_2 = 1;
@@ -226,47 +226,47 @@ lambda_t = 2*pi/3;
 
 % Time horizon and initialization
 
-N  = 40;                                % Time horizon for states
-M  = N;                                 % Time horizon for inputs
-z  = zeros(N*mx+M*mu,1);                % Initialize z for the whole horizon
-z0 = z;                                 % Initial value for optimization
+N  = 40;                      % Time horizon for states
+M  = N;                       % Time horizon for inputs
+z  = zeros(N*mx+M*mu,1);      % Initialize z for whole horizon
+z0 = z;                       % Initial value for optimization
 
 
 % Bounds
 
-ul 	    = -30*pi/180;                   % Lower bound on control -- u1
-uu 	    = 30*pi/180;                    % Upper bound on control -- u1
+ul 	    = -30*pi/180;         % Lower bound on control -- u1
+uu 	    = 30*pi/180;          % Upper bound on control -- u1
 
-xl      = -Inf*ones(mx,1);              % Lower bound on states (no bound)
-xu      = Inf*ones(mx,1);               % Upper bound on states (no bound)
-xl(3)   = ul;                           % Lower bound on state x3
-xu(3)   = uu;                           % Upper bound on state x3
+xl      = -Inf*ones(mx,1);    % Lower bound on states (no bound)
+xu      = Inf*ones(mx,1);     % Upper bound on states (no bound)
+xl(3)   = ul;                 % Lower bound on state x3
+xu(3)   = uu;                 % Upper bound on state x3
 
 % Generate constraints on measurements and inputs
 
 [vlb,vub]       = genBegr2(N,M,xl,xu,ul,uu);
-vlb(N*mx+M*mu)  = 0;                    % We want the last input to be zero
-vub(N*mx+M*mu)  = 0;                    % We want the last input to be zero
+vlb(N*mx+M*mu)  = 0;          % Last input is zero
+vub(N*mx+M*mu)  = 0;          % Last input is zero
 
 % Generate system matrixes for linear model
-Aeq = gena2(A,B,N,mx,mu);          % Generate A
-beq = zeros(1, size(Aeq,1));         % Generate b
-beq(1:mx) = A*x0; 	        	        % Initial value
+Aeq = gena2(A,B,N,mx,mu);     % Generate A
+beq = zeros(1, size(Aeq,1));  % Generate b
+beq(1:mx) = A*x0; 	       % Initial value
 
 % Generate the matrix Q and the vector c (objecitve function weights in the QP problem) 
 
 Q1 = zeros(mx,mx);
-Q1(1,1) = 1;                            % Weight on state x1
-Q1(2,2) = 0;                            % Weight on state x2
-Q1(3,3) = q;                            % Weight on state x3
-Q1(4,4) = 0;                            % Weight on state x4
+Q1(1,1) = 1;                  % Weight on state x1
+Q1(2,2) = 0;                  % Weight on state x2
+Q1(3,3) = q;                  % Weight on state x3
+Q1(4,4) = 0;                  % Weight on state x4
 Q1(5,5) = 0;
 Q1(6,6) = 0;
 P1 = zeros(mu, mu);
-P1(1,1) = q_1;                            % Weight on input
+P1(1,1) = q_1;                % Weight on input
 P1(2,2) = q_2;
-Q = 2*genq2(Q1,P1,N,M,mu);              % Generate Q
-c = zeros(N*mx+M*mu,1);                 % Generate c
+Q = 2*genq2(Q1,P1,N,M,mu);    % Generate Q
+c = zeros(N*mx+M*mu,1);       % Generate c
 
 % Solve Qp problem with linear model
 
@@ -290,10 +290,10 @@ end
 u1 = [u1_0; z(N*mx+1:mu:N*mx+M*mu)]; % Control input from solution
 u2 = [u2_0; z(N*mx+2:mu:N*mx+M*mu)];
 
-x1 = [x0(1);z(1:mx:N*mx)];              % State x1 from solution
-x2 = [x0(2);z(2:mx:N*mx)];              % State x2 from solution
-x3 = [x0(3);z(3:mx:N*mx)];              % State x3 from solution
-x4 = [x0(4);z(4:mx:N*mx)];              % State x4 from solution
+x1 = [x0(1);z(1:mx:N*mx)];      % State x1 from solution
+x2 = [x0(2);z(2:mx:N*mx)];      % State x2 from solution
+x3 = [x0(3);z(3:mx:N*mx)];      % State x3 from solution
+x4 = [x0(4);z(4:mx:N*mx)];      % State x4 from solution
 x5 = [x0(5);z(5:mx:N*mx)];
 x6 = [x0(6);z(6:mx:N*mx)];
 
@@ -361,4 +361,23 @@ R = [1 0;
 
 [K S E] = dlqr(A, B, Q_k, R, 0);
 
+\end{lstlisting}
+
+Code for the non-linear constrains
+\begin{lstlisting}
+function [a, b] = mycon(x)
+
+% system parameters
+alpha = 0.2;
+beta = 20;
+lambda_t = 2*pi/3;
+N = 40;
+
+myc = @(lambda, e) alpha * exp(-beta .* (lambda - lambda_t).^2) - e;
+c = @(x) myc(x(1 : 6 : 6*N), x(5 : 6 : 6*N));
+
+a = c(x);
+b = [];
+
+end
 \end{lstlisting}
