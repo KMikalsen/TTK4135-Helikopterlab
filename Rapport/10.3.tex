@@ -12,7 +12,7 @@ We introduce feedback to our system using the following manipulated variable:
 	\V{u}_k = \V{u}_k^* - \M{K} \transpose (\V{x}_k - \V{x}_k^*)
 \end{equation}
 
-where $u_k^*$ and $x_k^*$ are the optimal input sequence and optimal trajectory calculated in the previous task. $\M{K}$ is the \emph{gain matrix}, and can be calculated in many ways. We are going to determine it with an LQ (linear quadratic) controller that minimizes the function
+where $u_k^*$ and $x_k^*$ are the optimal input sequence and optimal trajectory calculated in the previous task. $\M{K}$ is the gain matrix, and can be calculated in numerous ways. We are going to determine it with an LQ (linear quadratic) controller that minimises the function
 
 \begin{equation} \label{eq:LQcost}
 	J = \sum\limits_{i=0}^{\infty} \Delta \V{x}_{i+1} \transpose \M{Q} \Delta \V{x}_{i+1} + \Delta \V{u}_{i} \transpose \M{R} \Delta \V{u}_{i}, \quad \M{Q} \geq 0, \, \M{R} > 0
@@ -31,7 +31,7 @@ where $\Delta \V{x} = \V{x} - \V{x}^*$ and $\Delta \V{u} = \V{u} - \V{u}^*$ are 
 	\label{fig:heldag3}
 \end{figure}
 
-We can tune the behaviour of the helicopter by changing the values of $\M{Q}$ and $R$, and by trial and error we obtain the following values:
+The behaviour of the helicopter is tuned by altering $\M{Q}$ and $R$, and by trial and error we obtained the following values: (TODO: HOW GOOD WAS THIS?)
 
 \begin{equation}
 	\M{Q} = 
@@ -51,7 +51,7 @@ We can tune the behaviour of the helicopter by changing the values of $\M{Q}$ an
 \subsection{Behaviour with feedback (10.3.2)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The first thing we notice is that the helicopter now actually stops at the desired reference point. What more? Plots?
+The first thing we notice is that the helicopter now does come to a halt at the setpoint. In the plots of the measured states, you can see that the travel value is stationary from 19 seconds onwards. You can also see that travel overshoots very slightly, but stabilises nicely at $\lambda_f$.
 
 \begin{figure}[H]
 	\centering
@@ -60,6 +60,9 @@ The first thing we notice is that the helicopter now actually stops at the desir
 	\label{fig:day3}
 \end{figure}
 
+
+As shown the shape of both the travel and pitch match the calculated values found in \ref{fig:day2q1} well. The feedback distorts the pitch from the calculated optimal as it works in parallel with the optimal input for the helikopter.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{MPC discussion (10.3.3)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -67,7 +70,7 @@ The first thing we notice is that the helicopter now actually stops at the desir
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Realization of MPC (10.3.3)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-An MPC can be realized with the following algorithm for linear MPC with state feedback
+MPC can be realized with the following algorithm for linear MPC with state feedback
 
 \begin{algorithmic}
 \For{t = 0,1,2,...}
@@ -78,12 +81,10 @@ An MPC can be realized with the following algorithm for linear MPC with state fe
 \end{algorithmic}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Advantages and disadvantages with using MPC (10.3.3)}
+\subsubsection{Advantages and disadvantages of using MPC (10.3.3)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-There are both advantages and disadvantages with using an MPC controller compared to the LQR controller.   
-MPC requires a lot of computations, and can therefore require a lot of computer resources. All these computations also take quite a bit of time, and is slower than an LQR controller. 
-However, all of these computations mean that you get a very accurate controller. 
-With the LQR you won't get that many computations, so it will be faster and require less computational power, but it will also be less accurate.
+There are both advantages and disadvantages with using an MPC controller compared to LQR.   
+MPC requires a lot of computation, and may therefore require more expensive hardware or longer computation time. However, this can yield a very accurate controller. LQR is less computationally intensive, but also less accurate.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Figure 8 with MPC (10.3.3)}
@@ -95,4 +96,4 @@ With the LQR you won't get that many computations, so it will be faster and requ
 	\label{fig:figurate}
 \end{figure}
 
-The MPC, pitch controller and elevation controller gets the actual position $x$ from the helicopter and calculates the input $u$, which the pitch and elevation controllers then use to find the voltages $V_d$ and $V_s$ to control the motors
+The MPC, the pitch controller, and the elevation controller receives the measured position $x$ from the helicopter and calculates the input $u$, which the pitch and elevation controllers then use to find the voltages $V_d$ and $V_s$ to control the motors

@@ -5,7 +5,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{State space form (10.2.1)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We want to write the model \eqref{eq:model1} in continuous time state space form with states and input as shown in \eqref{eq:state_and_input}.
+We want to write the model \eqref{eq:model1} in continuous time state space form with states and input as shown in \eqref{eq:state_and_input} below.
 
 \begin{equation}\label{eq:model1}
 	\V{\dot{x}} = \M{A}_{c}\V{x} + \M{B}_{c}u
@@ -17,7 +17,7 @@ We want to write the model \eqref{eq:model1} in continuous time state space form
 	u 		&= p_{c}
 \end{aligned}
 \end{equation}
-The equations of motion for the states are shown in \eqref{eq:state_equations} and the constants used are defined in \eqref{eq:K1K2}. These are derived in detail in \cite{_helicopter_2015}, and will be used without any further explanation here. This also applies for \eqref{eq:state_eqns} in section \ref{10.4.1}. 
+The equations of motion for the states are shown in \eqref{eq:state_equations} and the constants used are defined in \eqref{eq:K1K2}. (These are derived in detail in \cite{_helicopter_2015}, and will not be further explained here. The same applies for \eqref{eq:state_eqns} in section \ref{10.4.1}.)
 
 \begin{equation}\label{eq:state_equations}
 \begin{aligned}
@@ -59,13 +59,13 @@ The above gives the result in \eqref{eq:state_space_matrices}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Model discussion (10.2.1)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The states are travel, travel rate, pitch, and pitch rate. The controller output is the pitch setpoint to be used by the already implemented controller which in turn calculates voltage inputs for the plant. Thus, we are modelling not the helicopter alone, but a system that consists of the helicopter along with the given controller. This corresponds with figure 7 in the exercise text \cite{_helicopter_2015}.
+The system states are travel, travel rate, pitch, and pitch rate. The output of our controller is the pitch setpoint to be used by the already implemented controller, which in turn calculates voltage inputs for the hardware. We are therefore not modelling the helicopter alone, but a larger system consistinf of the helicopter along with the given controller. This corresponds with figure 7 in the exercise text \cite{_helicopter_2015}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Discretization (10.2.2)}\label{sec:disc1}
+\subsection{Discretisation (10.2.2)}\label{sec:disc1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We discretize the system by the Forward Euler Method. The general definition of the method and how it relates to our system is described by equations \eqref{eq:forward_euler} and \eqref{eq:euler_func}, respectively.
+We discretise the system by the Forward Euler Method. The general definition of the method and how it relates to our system is described by equations \eqref{eq:forward_euler} and \eqref{eq:euler_func}, respectively.
 
 \begin{equation}\label{eq:forward_euler}
 	y_{k+1} = y_{k} + h f(x_{k}, y_{k})
@@ -74,7 +74,7 @@ We discretize the system by the Forward Euler Method. The general definition of 
 \begin{equation}\label{eq:euler_func}
 	f = \left( \M{A}_{c} \V{x}_{k} + \M{B}_c u_{k} \right)
 \end{equation}
-Using \eqref{eq:forward_euler} and \eqref{eq:euler_func}, we can find the matrices of the discretized system, as shown in \eqref{eq:disc}, \eqref{eq:disc_matrix_A}, and \eqref{eq:disc_matrix_B}.
+Using \eqref{eq:forward_euler} and \eqref{eq:euler_func}, we can determine the matrices of the discrete system, as shown in \eqref{eq:disc}, \eqref{eq:disc_matrix_A}, and \eqref{eq:disc_matrix_B}.
 
 \begin{equation}\label{eq:disc}
 \begin{aligned}
@@ -104,7 +104,7 @@ Using \eqref{eq:forward_euler} and \eqref{eq:euler_func}, we can find the matric
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Discussion of the cost function (10.2.3)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We are given the cost function \eqref{eq:cost_function} from the exercise text \cite{_helicopter_2015} that we want to minimize, with the constraints given by \eqref{eq:cost_constraint}.
+The assignment text specifies a cost function \eqref{eq:cost_function} \cite{_helicopter_2015} that we want to minimise subject to the constraints given in \eqref{eq:cost_constraint}.
 
 
 \begin{equation} \label {eq:cost_function}
@@ -116,21 +116,20 @@ We are given the cost function \eqref{eq:cost_function} from the exercise text \
 \end{equation}
 
 This cost function focuses on the error between $\lambda_i$ and $\lambda_f$.
-It is a  quadratic least-square function and we will therefore use quadratic programming to make the error of $\lambda_i$ and $\lambda_f$ as small as possible.  
-The second part of the cost function consists of the pitch reference input, and a constant $q$ which decides how much you should focus on it. This part can lead to unwanted effects, which are discussed in \ref{unwanted}.
+It is a least-square (i.e. quadratic) function and can therefore be solved by quadratic programming methods.
+The second term of the cost function involves the pitch setpoint, which is weighed by a constant $q$.
 
-\textbf{TODO we must lay in some plots}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Procedure for solving the optimization problem (10.2.3)} \label{optimalProcedure}
+\subsection{Procedure for solving the optimization problem (10.2.3)}
+\label{optimalProcedure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The objective is to calculate an optimal trajectory for moving the helicopter from $x_0 = \begin{bmatrix} \lambda_0 & 0 & 0 & 0 \end{bmatrix} \transpose$ to $x_f = \begin{bmatrix} \lambda_f & 0 & 0 & 0 \end{bmatrix} \transpose$ with constant elevation angle. In this case we use $\lambda_0 = \pi$ and $\lambda_f = 0$.
+The intention is to calculate an optimal helicopter trajectory between $x_0 = \begin{bmatrix} \lambda_0 & 0 & 0 & 0 \end{bmatrix} \transpose$ and $x_f = \begin{bmatrix} \lambda_f & 0 & 0 & 0 \end{bmatrix} \transpose$, while assuming a constant elevation angle. In this case we use $\lambda_0 = \pi$ and $\lambda_f = 0$.
 
-We start by declaring the constants given in Table \ref{table:constants}, the $\M{A}$ and $\M{B}$ matrices given in \eqref{eq:state_space_matrices}, and $x_0$ given above. Then we implements the constraints in \eqref{eq:cost_constraint} using the following code:
+We first declare the constants given in Table \ref{table:constants}, the $\M{A}$ and $\M{B}$ matrices given in \eqref{eq:state_space_matrices}, and $x_0$ given above. Then we implement the constraints in \eqref{eq:cost_constraint} using the following code:
 
 \begin{lstlisting}
-
 % Bounds
 
 ul 	    = -30*pi/180;        % Lower bound on control -- u1
@@ -151,7 +150,7 @@ vub(N*mx+M*mu)  = 0;         % We want the last input to be zero
 where \texttt{genBegr2} is like this:
 
 %NB denne koden er hentet fra nettet, skriv kilde
-\newline
+\vspace{1cm}
 \begin{lstlisting} %få kommentarene på en linje, ser mye bedre ut
 
 function [vlb,vub] = genBegr2(N,M,xl,xu,ul,uu);
@@ -211,26 +210,50 @@ end
 A	= [a1 b1];
 \end{lstlisting}
 
-At last we can solve the quadratic problem using \texttt{quadprog}:
+At last we solve the quadratic problem using the MATLAB command \texttt{quadprog}:
 
 \begin{lstlisting}
 	[z,lambda] = quadprog(Q, c, [], [], Aeq, beq, vlb, vub, z0);
 \end{lstlisting}
-where $\M{Z} = \begin{bmatrix} \V{x}_1 & \V{x}_2 & ... & \V{x}_N & u_1 & u_2 & ... & u_N \end{bmatrix} \transpose$. The complete code is listed in the appendix (ref her!). We find the desired states and get these plots, using three different value of q:
+where $\M{Z} = \begin{bmatrix} \V{x}_1 & \V{x}_2 & ... & \V{x}_N & u_1 & u_2 & ... & u_N \end{bmatrix} \transpose$. The full code is listed in the appendix. We extract the desired states and get the following plots, using three different values of $q$:
 
-\textbf{TODO: plots here} 
+
+\begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.5\textwidth}
+                \includegraphics[width=\textwidth]{day2q0komma1}
+                \caption{Optimal path with $q = 0.1$}
+                \label{fig:estimatedDay201}
+        \end{subfigure}%
+        ~ 
+        \begin{subfigure}[b]{0.5\textwidth}
+                \includegraphics[width=\textwidth]{day2q1}
+                \caption{Optimal path with $q = 1$}
+                \label{fig:estimatedDay202}
+        \end{subfigure}
+        ~ 
+        \begin{subfigure}[b]{0.5\textwidth}
+                \includegraphics[width=\textwidth]{day2q10}
+                \caption{Optimal path with $q = 10$}
+                \label{fig:estimatedDay203}
+        \end{subfigure}
+        \caption{Optimal paths with different $q$}\label{fig:animals}
+\end{figure}
+
+
+
+From the figures we see that a large $q$ will downpress the pitch, resulting in slower travel. This makes sense. \eqref{eq:cost_function} tells us that $q$ is the weight of the pitch rate. We want to minimise the entire expression, meaning if we increase $p_c$, $p_c$ will decrease, to minimize the function.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Discussion of unwanted effects (10.2.3)\label{unwanted}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-When $\lambda = \lambda_f$, the first part of the cost function will be 0, and the QP algorithm will try to minimize the pitch. This will set the pitch to 0, which could make the helicopter overshoot and not stop at the reference. This can lead to the helicopter oscillating around this point.
+When $\lambda = \lambda_f$, the first part of the cost function will be 0. In this case, the QP algorithm will only attempt to minimise pitch. It achieves this by setting the pitch equal to zero, which most likely will result in overshoot and oscillations.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Deviation and desired behaviour of helicopter (10.2.4)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Now we want to use the optimal input found in \ref{optimalProcedure} as an input to our physical helicopter system. We do this using Simulink with QuaRC. It will look like this:
-
+Now we want to use the optimal input found in section \ref{optimalProcedure} as an input to our helicopter system. We do this using Simulink with QuaRC as seen in figure \ref{fig:heldag2}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth, trim=2cm 6cm 2cm 2cm]{simulinkmodels/heldag2}
@@ -238,7 +261,9 @@ Now we want to use the optimal input found in \ref{optimalProcedure} as an input
 	\label{fig:heldag2}
 \end{figure}
 
-The helicopter does not stop in the desired end point, as the QP algorithm overcompensates for the time needed to brake, and the helicopter starts gliding back in the opposite direction. This is shown in the plots.
+The helicopter does not stop at the desired end point, as the QP algorithm overcompensates for the time needed to brake, and the helicopter glides back in the opposite direction. This can be seen in the plots.
+
+Note, however, that we discovered a fault related to the travel sensor causing it to not reset accumulated travel at start-up. As a consequence of this is we got a value of $\lambda$ that is off by roughly 6000 degrees, but the general response of the system is still valid and is easily seen in the figures.
 
 \begin{figure}[H]
 	\centering
@@ -246,3 +271,5 @@ The helicopter does not stop in the desired end point, as the QP algorithm overc
 	\caption{Actual values day 2}
 	\label{fig:day2}
 \end{figure}
+
+If we compare Figure \ref{fig:day2} and Figure \ref{fig:estimatedDay202}, we see that the travel values have a similar profile for the first 15 seconds or so, after which it starts to overcompensate (as described earlier). There is some deviation of pitch, with the actual pitch first swaying one way, and then back the other. We can also see that the elevation is not constant, as opposed to our earlier assumption.

@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt,draft]{article}
+\documentclass[a4paper,12pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -14,6 +14,8 @@
 \usepackage{epstopdf}						% Self-explanatory
 \usepackage{float} 							% Better float placing (H option)
 \usepackage{siunitx}						% SI units
+\usepackage{subcaption}						% Puts stuff next to each otter
+\usepackage{newclude}						% \include without clearpage
 \bibliographystyle{ieeetr}					% Citations in IEEE style
 \lstset{frame=topbottom}
 
@@ -41,39 +43,39 @@
 \begin{center}
 
 \textsc{\LARGE TTK4135}\\[1.5cm]
-\textsc{\LARGE Report} \linebreak
-{ \huge \bfseries \textcolor[rgb]{0,0,1}{Helicopter Lab}\\[0.5cm] }
+\textsc{\LARGE Lab Report} \linebreak
+{ \huge \bfseries \textcolor[rgb]{0,0,1}{Real-world application of optimal control methods}\\[0.5cm] }
 \today \vspace{1cm} \linebreak 
-\emph{\textbf{Student numbers:}} \linebreak 
-742434 \linebreak
-XXXXXX \linebreak
-XXXXXX \linebreak
-XXXXXX \linebreak
-XXXXXX \linebreak\linebreak \textbf{Group 9}  \vspace{3cm}\linebreak \linebreak
+\textbf{Group 9} \linebreak \linebreak
+\emph{\textbf{Participants:}} \linebreak 
+712623, 742401, 742434, 742441, 742446 \linebreak
+
+
+\begin{abstract}
+
+This is a report for the mandatory lab exercise in the course TTK4135 Optimization and Control held at NTNU the spring 2015. The purpose of this exercise is to get practical experience in formulating dynamic optimization problems, discretise them and solve them using a computer, as well as using these results to implement optimal controllers with and without feedback. The optimization problems that got solved were quadratic minimization problems, and the feedback was introduced using LQ controllers.
+
+\end{abstract}
+
+\vfill
 
 \textsc{Faculty of Information Technology, Mathematics and Electrical Engineering}\linebreak
 \textsc{Department of Engineering Cybernetics} 
-\vfill
 
 
 \includegraphics[width=200pt, keepaspectratio=true]{logo_ntnu_eng.eps}
 
 \end{center}
 \end{titlepage}
-\begin{abstract}
-
-This is a report for the mandatory lab exercise in the course TTK4135 Optimization and Control held at NTNU the spring 2015. The purpose of this exercise is to get practical experience in formulating dynamic optimization problems, discretizise them and solve them using a computer, as well as using these results to impliment optimal controllers with and without feedback. The optimization problems that got solved were quadratic minimization problems, and the feedback was introduced using LQ controllers.
-
-\end{abstract}
 
 \tableofcontents
 
 \include{introduction}
-\include{10.1}
-\include{10.2}
-\include{10.3}
-\include{10.4}
-\include{discussionAndConclusion}
+\include*{10.1}
+\include*{10.2}
+\include*{10.3}
+\include*{10.4}
+\include*{discussionAndConclusion}
 \include{appendix}
 %\include{pastebin}
 
