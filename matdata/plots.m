@@ -8,7 +8,7 @@ labelSize = 14;
 % set(0, 'DefaultAxesFontSize',14);
 
 %% Day 2
-t1 = 20000;
+t1 = 35000;
 figure(1); clf(1);
 
 xpos = xpos_master - .3;
@@ -41,7 +41,7 @@ set(yl,'Pos',[xpos pos(2) pos(3)])
 xlabel('Time [s]', 'FontSize', 20)
 
 %% Day 3
-t1 = 20000;
+t1 = 35000;
 figure(2); clf(2);
 
 xpos = xpos_master - .3;
@@ -63,7 +63,7 @@ set(yl,'Pos',[xpos pos(2) pos(3)])
 subplot(3,1,3);
 load('travelDay3');
 plot(travel(1,t0:t1), travel(2,t0:t1));
-axis([0 20 0 250]);
+%axis([0 20 0 250]);
 yl = ylabel('travel', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
@@ -71,7 +71,7 @@ set(yl,'Pos',[xpos pos(2) pos(3)])
 xlabel('Time [s]', 'FontSize', 20)
 
 %% Day 4 no feedback
-t1 = 15000;
+t1 = 20000;
 figure(3); clf(3);
 
 xpos = xpos_master + .1;
@@ -101,7 +101,7 @@ set(yl,'Pos',[xpos pos(2) pos(3)])
 xlabel('Time [s]', 'FontSize', 20)
 
 %% Day 4 with feedback
-t1 = 24000;
+t1 = 20000;
 xpos = xpos_master - .7;
 figure(4); clf(4);
 
