@@ -17,23 +17,23 @@ ti = get(gca,'TightInset')
 set(gca,'Position',[ti(1) ti(2) 1-ti(3)-ti(1) 1-ti(4)-ti(2)]);
 
 subplot(nSub,1,1);
-load('day2_elev');
+load('ElevasjonDay2');
 plot(Elevasjon(1,1:t1), Elevasjon(2,1:t1));
 yl = ylabel('elevation', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
 
 subplot(nSub,1,2);
-load('day2_pitch');
+load('PitchDay2');
 plot(Pitch(1,1:t1), Pitch(2,1:t1));
 yl = ylabel('pitch', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
 
 subplot(nSub,1,3);
-load('day2_travel');
+load('TravelDay2');
 plot(travel(1,t0:t1), travel(2,t0:t1));
-axis([0 20 5900 6180]);
+%axis([0 20 5900 6180]);
 yl = ylabel('travel', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
@@ -47,21 +47,21 @@ figure(2); clf(2);
 xpos = xpos_master - .3;
 
 subplot(3,1,1);
-load('day3_elev');
+load('ElevasjonDay3');
 plot(Elevasjon(1,1:t1), Elevasjon(2,1:t1));
 yl = ylabel('elevation', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
 
 subplot(3,1,2);
-load('day3_pitch');
+load('PitchDay3');
 plot(Pitch(1,1:t1), Pitch(2,1:t1));
 yl = ylabel('pitch', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
 
 subplot(3,1,3);
-load('day3_travel');
+load('travelDay3');
 plot(travel(1,t0:t1), travel(2,t0:t1));
 axis([0 20 0 250]);
 yl = ylabel('travel', 'FontSize', labelSize);
@@ -77,21 +77,21 @@ figure(3); clf(3);
 xpos = xpos_master + .1;
 
 subplot(3,1,1);
-load('day4_elev_nofeed');
+load('ElevasjonDay4UnFeed');
 plot(Elevasjon(1,1:t1), Elevasjon(2,1:t1));
 yl = ylabel('elevation', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
 
 subplot(3,1,2);
-load('day4_pitch_nofeed');
+load('PitchDay4UnFeed');
 plot(Pitch(1,1:t1), Pitch(2,1:t1));
 yl = ylabel('pitch', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
 
 subplot(3,1,3);
-load('day4_travel_nofeed');
+load('travelDay4UnFeed');
 plot(travel(1,t0:t1), travel(2,t0:t1));
 axis([0 15 0 250]);
 yl = ylabel('travel', 'FontSize', labelSize);
@@ -106,7 +106,7 @@ xpos = xpos_master - .7;
 figure(4); clf(4);
 
 subplot(3,1,1);
-load('day4_elev_withfeed');
+load('ElevasjonDay4MFeed');
 plot(Elevasjon(1,1:t1), Elevasjon(2,1:t1));
 axis([0 24 -50 50]);
 yl = ylabel('elevation', 'FontSize', labelSize);
@@ -114,7 +114,7 @@ pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
 
 subplot(3,1,2);
-load('day4_pitch_withfeed');
+load('PitchDay4MFeed');
 plot(Pitch(1,1:t1), Pitch(2,1:t1));
 axis([0 24 -50 50]);
 yl = ylabel('pitch', 'FontSize', labelSize);
@@ -122,7 +122,7 @@ pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
 
 subplot(3,1,3);
-load('day4_travel_withfeed');
+load('travelDay4MFeed');
 plot(travel(1,t0:t1), travel(2,t0:t1));
 axis([0 24 -30 250]);
 yl = ylabel('travel', 'FontSize', labelSize);
