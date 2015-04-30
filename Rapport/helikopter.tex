@@ -16,6 +16,7 @@
 \usepackage{siunitx}						% SI units
 \usepackage{subcaption}						% Puts stuff next to each otter
 \usepackage{newclude}						% \include without clearpage
+\usepackage[nottoc,numbib]{tocbibind}		% Adds bibtex to toc
 \bibliographystyle{ieeetr}					% Citations in IEEE style
 \lstset{frame=topbottom}
 
@@ -78,6 +79,8 @@ This is a report for the mandatory lab exercise in the course TTK4135 Optimizati
 \include*{discussionAndConclusion}
 
 \bibliography{ref-helikopter}
+
+\appendix
 \include{appendix}
 
 \end{document}
