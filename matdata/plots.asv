@@ -71,7 +71,7 @@ set(yl,'Pos',[xpos pos(2) pos(3)])
 xlabel('Time [s]', 'FontSize', 20)
 
 %% Day 4 no feedback
-t1 = 20000;
+t1 = 35000;
 figure(3); clf(3);
 
 xpos = xpos_master + .1;
@@ -93,7 +93,7 @@ set(yl,'Pos',[xpos pos(2) pos(3)])
 subplot(3,1,3);
 load('travelDay4UnFeed');
 plot(travel(1,t0:t1), travel(2,t0:t1));
-axis([0 20 -500 250]);
+axis([0 35 -500 250]);
 yl = ylabel('travel', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
@@ -101,14 +101,14 @@ set(yl,'Pos',[xpos pos(2) pos(3)])
 xlabel('Time [s]', 'FontSize', 20)
 
 %% Day 4 with feedback
-t1 = 20000;
+t1 = 35000;
 xpos = xpos_master - .7;
 figure(4); clf(4);
 
 subplot(3,1,1);
 load('ElevasjonDay4MFeed');
 plot(Elevasjon(1,1:t1), Elevasjon(2,1:t1));
-axis([0 20 -50 50]);
+%axis([0 35 -50 50]);
 yl = ylabel('elevation', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
@@ -116,7 +116,7 @@ set(yl,'Pos',[xpos pos(2) pos(3)])
 subplot(3,1,2);
 load('PitchDay4MFeed');
 plot(Pitch(1,1:t1), Pitch(2,1:t1));
-axis([0 20 -50 50]);
+%axis([0 20 -50 50]);
 yl = ylabel('pitch', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
@@ -124,7 +124,7 @@ set(yl,'Pos',[xpos pos(2) pos(3)])
 subplot(3,1,3);
 load('travelDay4MFeed');
 plot(travel(1,t0:t1), travel(2,t0:t1));
-axis([0 20 -30 250]);
+axis([0 35 -30 250]);
 yl = ylabel('travel', 'FontSize', labelSize);
 pos = get(yl,'Pos');
 set(yl,'Pos',[xpos pos(2) pos(3)])
